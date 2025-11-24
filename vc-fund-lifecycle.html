@@ -1,0 +1,621 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .vc-lifecycle-container {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      padding: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .vc-lifecycle-container h1 {
+      font-size: 1.875rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #0a4c86;
+    }
+
+    .vc-lifecycle-container .subtitle {
+      color: #999999;
+      margin-bottom: 40px;
+    }
+
+    /* Timeline */
+    .timeline-section {
+      margin-bottom: 48px;
+    }
+
+    .timeline-bar {
+      height: 12px;
+      background-color: #f5f5f5;
+      border-radius: 9999px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .timeline-segment {
+      height: 100%;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+
+    .timeline-segment:hover {
+      opacity: 0.9;
+    }
+
+    .timeline-segment.active {
+      opacity: 1;
+    }
+
+    .timeline-segment:not(.active) {
+      opacity: 0.7;
+    }
+
+    .year-markers {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      font-size: 0.875rem;
+      color: #999999;
+      font-weight: 500;
+    }
+
+    .year-markers span {
+      width: 24px;
+      text-align: center;
+    }
+
+    /* Phase Cards */
+    .phase-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .phase-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .phase-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .phase-card {
+      padding: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #f5f5f5;
+      border: 2px solid transparent;
+    }
+
+    .phase-card.active {
+      background-color: #e8f1f8;
+    }
+
+    .phase-card .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-bottom: 12px;
+    }
+
+    .phase-card h3 {
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #000000;
+      font-size: 1rem;
+    }
+
+    .phase-card p {
+      font-size: 0.875rem;
+      color: #999999;
+    }
+
+    /* Phase Detail */
+    .phase-detail {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 8px;
+      background-color: #f5f5f5;
+      border: 1px solid #cccccc;
+      display: none;
+    }
+
+    .phase-detail.active {
+      display: block;
+    }
+
+    .phase-detail p {
+      margin-bottom: 16px;
+      color: #000000;
+    }
+
+    .activity-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .activity-tag {
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    /* J-Curve Section */
+    .jcurve-section {
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .jcurve-section h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #0a4c86;
+    }
+
+    .jcurve-section .subtitle {
+      font-size: 0.875rem;
+      color: #999999;
+      margin-bottom: 24px;
+    }
+
+    .chart-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .chart-container svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Tooltip */
+    .tooltip {
+      pointer-events: none;
+    }
+
+    /* Key Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    @media (max-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .metric-card {
+      background-color: #e8f1f8;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .metric-card .label {
+      font-size: 0.875rem;
+      color: #999999;
+      margin-bottom: 4px;
+    }
+
+    .metric-card .value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #0a4c86;
+    }
+
+    .metric-card .sublabel {
+      font-size: 0.75rem;
+      color: #999999;
+      margin-top: 4px;
+    }
+
+    /* Fund Economics */
+    .economics-section {
+      margin-top: 32px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .economics-section h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #0a4c86;
+    }
+
+    .economics-section .subtitle {
+      font-size: 0.875rem;
+      color: #999999;
+      margin-bottom: 24px;
+    }
+
+    .economics-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #cccccc;
+    }
+
+    .economics-row:last-child {
+      border-bottom: none;
+    }
+
+    .economics-row .label {
+      color: #999999;
+    }
+
+    .economics-row .value {
+      font-weight: 500;
+      color: #000000;
+    }
+
+    .economics-row .value.positive {
+      color: #2d8a4e;
+    }
+
+    .economics-row .value.negative {
+      color: #c44536;
+    }
+
+    .economics-row.total .label {
+      font-weight: 500;
+      color: #000000;
+    }
+
+    .economics-row.total .value {
+      font-weight: 600;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 0.875rem;
+      color: #b3b3b3;
+    }
+
+    /* Data point hover effect */
+    .data-point {
+      cursor: pointer;
+      transition: r 0.2s ease;
+    }
+
+    .data-point:hover {
+      r: 8;
+    }
+  </style>
+</head>
+<body>
+  <div class="vc-lifecycle-container">
+    <h1>VC Fund Lifecycle</h1>
+    <p class="subtitle">Typical 10-year closed-end venture capital fund structure</p>
+
+    <!-- Timeline Section -->
+    <div class="timeline-section">
+      <div class="timeline-bar">
+        <div class="timeline-segment" data-phase="fundraising" style="flex: 1; background-color: #0a4c86;"></div>
+        <div class="timeline-segment" data-phase="investment" style="flex: 4; background-color: #1a6bb5;"></div>
+        <div class="timeline-segment" data-phase="management" style="flex: 5; background-color: #3a8bd5;"></div>
+        <div class="timeline-segment" data-phase="harvest" style="flex: 5; background-color: #999999;"></div>
+      </div>
+
+      <div class="year-markers">
+        <span>Y0</span><span>Y1</span><span>Y2</span><span>Y3</span><span>Y4</span>
+        <span>Y5</span><span>Y6</span><span>Y7</span><span>Y8</span><span>Y9</span><span>Y10</span>
+      </div>
+
+      <!-- Phase Cards -->
+      <div class="phase-cards">
+        <div class="phase-card" data-phase="fundraising">
+          <div class="dot" style="background-color: #0a4c86;"></div>
+          <h3>Fundraising</h3>
+          <p>Years 0-1</p>
+        </div>
+        <div class="phase-card" data-phase="investment">
+          <div class="dot" style="background-color: #1a6bb5;"></div>
+          <h3>Investment Period</h3>
+          <p>Years 1-5</p>
+        </div>
+        <div class="phase-card" data-phase="management">
+          <div class="dot" style="background-color: #3a8bd5;"></div>
+          <h3>Value Creation</h3>
+          <p>Years 3-8</p>
+        </div>
+        <div class="phase-card" data-phase="harvest">
+          <div class="dot" style="background-color: #999999;"></div>
+          <h3>Harvest Period</h3>
+          <p>Years 5-10+</p>
+        </div>
+      </div>
+
+      <!-- Phase Details -->
+      <div class="phase-detail" data-phase="fundraising">
+        <p>GPs raise capital commitments from LPs (pension funds, endowments, family offices). Fund documents negotiated, target size established.</p>
+        <div class="activity-tags">
+          <span class="activity-tag" style="background-color: #0a4c8620; color: #0a4c86;">LP outreach & pitching</span>
+          <span class="activity-tag" style="background-color: #0a4c8620; color: #0a4c86;">Due diligence by LPs</span>
+          <span class="activity-tag" style="background-color: #0a4c8620; color: #0a4c86;">Legal documentation</span>
+          <span class="activity-tag" style="background-color: #0a4c8620; color: #0a4c86;">First close → Final close</span>
+        </div>
+      </div>
+
+      <div class="phase-detail" data-phase="investment">
+        <p>Active deployment of capital into portfolio companies. Capital calls made as investments are identified and closed.</p>
+        <div class="activity-tags">
+          <span class="activity-tag" style="background-color: #1a6bb520; color: #1a6bb5;">Deal sourcing & screening</span>
+          <span class="activity-tag" style="background-color: #1a6bb520; color: #1a6bb5;">Due diligence</span>
+          <span class="activity-tag" style="background-color: #1a6bb520; color: #1a6bb5;">Term sheet negotiation</span>
+          <span class="activity-tag" style="background-color: #1a6bb520; color: #1a6bb5;">Portfolio construction</span>
+          <span class="activity-tag" style="background-color: #1a6bb520; color: #1a6bb5;">Reserve allocation</span>
+        </div>
+      </div>
+
+      <div class="phase-detail" data-phase="management">
+        <p>GPs work with portfolio companies to accelerate growth, provide strategic guidance, and prepare for exits.</p>
+        <div class="activity-tags">
+          <span class="activity-tag" style="background-color: #3a8bd520; color: #3a8bd5;">Board participation</span>
+          <span class="activity-tag" style="background-color: #3a8bd520; color: #3a8bd5;">Operational support</span>
+          <span class="activity-tag" style="background-color: #3a8bd520; color: #3a8bd5;">Follow-on investments</span>
+          <span class="activity-tag" style="background-color: #3a8bd520; color: #3a8bd5;">Strategic introductions</span>
+          <span class="activity-tag" style="background-color: #3a8bd520; color: #3a8bd5;">Exit preparation</span>
+        </div>
+      </div>
+
+      <div class="phase-detail" data-phase="harvest">
+        <p>Exits through IPOs, M&A, or secondary sales. Distributions returned to LPs. Fund wind-down.</p>
+        <div class="activity-tags">
+          <span class="activity-tag" style="background-color: #99999920; color: #666666;">IPO execution</span>
+          <span class="activity-tag" style="background-color: #99999920; color: #666666;">M&A transactions</span>
+          <span class="activity-tag" style="background-color: #99999920; color: #666666;">Secondary sales</span>
+          <span class="activity-tag" style="background-color: #99999920; color: #666666;">Distributions to LPs</span>
+          <span class="activity-tag" style="background-color: #99999920; color: #666666;">Fund dissolution</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- J-Curve Chart -->
+    <div class="jcurve-section">
+      <h2>The J-Curve</h2>
+      <p class="subtitle">Cumulative cash flows as percentage of committed capital</p>
+      
+      <div class="chart-container">
+        <svg id="jcurve-chart" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid meet">
+          <!-- Grid lines -->
+          <line x1="60" y1="40" x2="570" y2="40" stroke="#cccccc" stroke-dasharray="4,4"/>
+          <line x1="60" y1="90" x2="570" y2="90" stroke="#cccccc" stroke-dasharray="4,4"/>
+          <line x1="60" y1="140" x2="570" y2="140" stroke="#999999" stroke-width="1.5"/>
+          <line x1="60" y1="190" x2="570" y2="190" stroke="#cccccc" stroke-dasharray="4,4"/>
+          <line x1="60" y1="240" x2="570" y2="240" stroke="#cccccc" stroke-dasharray="4,4"/>
+
+          <!-- Y-axis labels -->
+          <text x="50" y="44" text-anchor="end" fill="#999999" font-size="12" font-family="Poppins">100%</text>
+          <text x="50" y="94" text-anchor="end" fill="#999999" font-size="12" font-family="Poppins">50%</text>
+          <text x="50" y="144" text-anchor="end" fill="#999999" font-size="12" font-family="Poppins">0%</text>
+          <text x="50" y="194" text-anchor="end" fill="#999999" font-size="12" font-family="Poppins">-50%</text>
+          <text x="50" y="244" text-anchor="end" fill="#999999" font-size="12" font-family="Poppins">-100%</text>
+
+          <!-- Phase backgrounds -->
+          <rect x="60" y="40" width="51" height="200" fill="#0a4c8610"/>
+          <rect x="111" y="40" width="204" height="200" fill="#1a6bb510"/>
+          <rect x="162" y="40" width="255" height="200" fill="#3a8bd510"/>
+          <rect x="315" y="40" width="255" height="200" fill="#99999910"/>
+
+          <!-- Capital Called line (dashed red) -->
+          <path d="M 60 140 L 111 152.5 L 162 173.3 L 213 190 L 264 202.5 L 315 210.8 L 366 215 L 417 219.2 L 468 221.7 L 519 223.3 L 570 223.3" 
+                fill="none" stroke="#c44536" stroke-width="2" stroke-dasharray="6,4" opacity="0.7"/>
+
+          <!-- Distributions line (dashed green) -->
+          <path d="M 60 140 L 111 140 L 162 135.8 L 213 131.7 L 264 123.3 L 315 102.5 L 366 81.7 L 417 52.5 L 468 20.8 L 519 -6.3 L 570 -26.7" 
+                fill="none" stroke="#2d8a4e" stroke-width="2" stroke-dasharray="6,4" opacity="0.7"/>
+
+          <!-- J-Curve line -->
+          <path id="jcurve-line" d="M 60 140 L 111 152.5 L 162 169.2 L 213 181.7 L 264 185.8 L 315 173.3 L 366 156.7 L 417 131.7 L 468 102.5 L 519 77.5 L 570 56.7" 
+                fill="none" stroke="#0a4c86" stroke-width="3"/>
+
+          <!-- Data points -->
+          <circle class="data-point" cx="60" cy="140" r="5" fill="#0a4c86" data-year="0" data-value="0" data-called="0" data-distributed="0"/>
+          <circle class="data-point" cx="111" cy="152.5" r="5" fill="#0a4c86" data-year="1" data-value="-15" data-called="15" data-distributed="0"/>
+          <circle class="data-point" cx="162" cy="169.2" r="5" fill="#0a4c86" data-year="2" data-value="-35" data-called="40" data-distributed="5"/>
+          <circle class="data-point" cx="213" cy="181.7" r="5" fill="#0a4c86" data-year="3" data-value="-50" data-called="60" data-distributed="10"/>
+          <circle class="data-point" cx="264" cy="185.8" r="5" fill="#0a4c86" data-year="4" data-value="-55" data-called="75" data-distributed="20"/>
+          <circle class="data-point" cx="315" cy="173.3" r="5" fill="#0a4c86" data-year="5" data-value="-40" data-called="85" data-distributed="45"/>
+          <circle class="data-point" cx="366" cy="156.7" r="5" fill="#0a4c86" data-year="6" data-value="-20" data-called="90" data-distributed="70"/>
+          <circle class="data-point" cx="417" cy="131.7" r="5" fill="#0a4c86" data-year="7" data-value="10" data-called="95" data-distributed="105"/>
+          <circle class="data-point" cx="468" cy="102.5" r="5" fill="#0a4c86" data-year="8" data-value="45" data-called="98" data-distributed="143"/>
+          <circle class="data-point" cx="519" cy="77.5" r="5" fill="#0a4c86" data-year="9" data-value="75" data-called="100" data-distributed="175"/>
+          <circle class="data-point" cx="570" cy="56.7" r="5" fill="#0a4c86" data-year="10" data-value="100" data-called="100" data-distributed="200"/>
+
+          <!-- X-axis labels -->
+          <text x="60" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y0</text>
+          <text x="111" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y1</text>
+          <text x="162" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y2</text>
+          <text x="213" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y3</text>
+          <text x="264" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y4</text>
+          <text x="315" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y5</text>
+          <text x="366" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y6</text>
+          <text x="417" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y7</text>
+          <text x="468" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y8</text>
+          <text x="519" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y9</text>
+          <text x="570" y="265" text-anchor="middle" fill="#999999" font-size="12" font-family="Poppins">Y10</text>
+
+          <!-- Legend -->
+          <line x1="450" y1="40" x2="470" y2="40" stroke="#0a4c86" stroke-width="3"/>
+          <text x="475" y="44" fill="#999999" font-size="11" font-family="Poppins">Net Cash Flow</text>
+          
+          <line x1="450" y1="60" x2="470" y2="60" stroke="#c44536" stroke-width="2" stroke-dasharray="6,4"/>
+          <text x="475" y="64" fill="#999999" font-size="11" font-family="Poppins">Capital Called</text>
+          
+          <line x1="450" y1="80" x2="470" y2="80" stroke="#2d8a4e" stroke-width="2" stroke-dasharray="6,4"/>
+          <text x="475" y="84" fill="#999999" font-size="11" font-family="Poppins">Distributions</text>
+
+          <!-- Tooltip (hidden by default) -->
+          <g id="tooltip" class="tooltip" style="display: none;">
+            <rect x="0" y="0" width="140" height="55" rx="4" fill="#ffffff" stroke="#cccccc"/>
+            <text id="tooltip-title" x="70" y="15" text-anchor="middle" fill="#000000" font-size="11" font-family="Poppins" font-weight="500"></text>
+            <text id="tooltip-called" x="70" y="30" text-anchor="middle" fill="#c44536" font-size="11" font-family="Poppins"></text>
+            <text id="tooltip-distributed" x="70" y="45" text-anchor="middle" fill="#2d8a4e" font-size="11" font-family="Poppins"></text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <p class="label">Target Return Multiple</p>
+        <p class="value">2.0-3.0x</p>
+        <p class="sublabel">TVPI (Total Value to Paid-In)</p>
+      </div>
+      <div class="metric-card">
+        <p class="label">Target Net IRR</p>
+        <p class="value">20-25%</p>
+        <p class="sublabel">Internal Rate of Return</p>
+      </div>
+      <div class="metric-card">
+        <p class="label">Management Fee</p>
+        <p class="value">2% / 20%</p>
+        <p class="sublabel">Annual fee / Carried interest</p>
+      </div>
+    </div>
+
+    <!-- Fund Economics -->
+    <div class="economics-section">
+      <h2>Fund Economics Example</h2>
+      <p class="subtitle">$100M committed capital fund</p>
+
+      <div class="economics-row">
+        <span class="label">Committed Capital</span>
+        <span class="value">$100M</span>
+      </div>
+      <div class="economics-row">
+        <span class="label">Management Fees (2% × 10 yrs)</span>
+        <span class="value negative">−$20M</span>
+      </div>
+      <div class="economics-row">
+        <span class="label">Capital Available for Investment</span>
+        <span class="value">$80M</span>
+      </div>
+      <div class="economics-row">
+        <span class="label">Gross Returns (2.5x on invested)</span>
+        <span class="value positive">$200M</span>
+      </div>
+      <div class="economics-row">
+        <span class="label">Carried Interest (20% above hurdle)</span>
+        <span class="value negative">−$20M</span>
+      </div>
+      <div class="economics-row total">
+        <span class="label">Net to LPs</span>
+        <span class="value positive">$180M (1.8x)</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Data Darbar</p>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Phase selection functionality
+      const phaseCards = document.querySelectorAll('.phase-card');
+      const timelineSegments = document.querySelectorAll('.timeline-segment');
+      const phaseDetails = document.querySelectorAll('.phase-detail');
+
+      function setActivePhase(phase) {
+        // Toggle if clicking same phase
+        const isAlreadyActive = document.querySelector(`.phase-card[data-phase="${phase}"]`).classList.contains('active');
+        
+        // Remove all active states
+        phaseCards.forEach(card => card.classList.remove('active'));
+        timelineSegments.forEach(seg => seg.classList.remove('active'));
+        phaseDetails.forEach(detail => detail.classList.remove('active'));
+
+        if (!isAlreadyActive && phase) {
+          // Set new active state
+          document.querySelector(`.phase-card[data-phase="${phase}"]`).classList.add('active');
+          document.querySelector(`.timeline-segment[data-phase="${phase}"]`).classList.add('active');
+          document.querySelector(`.phase-detail[data-phase="${phase}"]`).classList.add('active');
+          
+          // Update border color
+          const colors = {
+            fundraising: '#0a4c86',
+            investment: '#1a6bb5',
+            management: '#3a8bd5',
+            harvest: '#999999'
+          };
+          document.querySelector(`.phase-card[data-phase="${phase}"]`).style.borderColor = colors[phase];
+        }
+      }
+
+      phaseCards.forEach(card => {
+        card.addEventListener('click', () => setActivePhase(card.dataset.phase));
+      });
+
+      timelineSegments.forEach(seg => {
+        seg.addEventListener('click', () => setActivePhase(seg.dataset.phase));
+      });
+
+      // J-Curve tooltip functionality
+      const dataPoints = document.querySelectorAll('.data-point');
+      const tooltip = document.getElementById('tooltip');
+      const tooltipTitle = document.getElementById('tooltip-title');
+      const tooltipCalled = document.getElementById('tooltip-called');
+      const tooltipDistributed = document.getElementById('tooltip-distributed');
+
+      dataPoints.forEach(point => {
+        point.addEventListener('mouseenter', (e) => {
+          const year = point.dataset.year;
+          const value = point.dataset.value;
+          const called = point.dataset.called;
+          const distributed = point.dataset.distributed;
+
+          tooltipTitle.textContent = `Year ${year} • Net: ${value > 0 ? '+' : ''}${value}%`;
+          tooltipCalled.textContent = `Called: ${called}%`;
+          tooltipDistributed.textContent = `Distributed: ${distributed}%`;
+
+          const cx = parseFloat(point.getAttribute('cx'));
+          const cy = parseFloat(point.getAttribute('cy'));
+
+          tooltip.setAttribute('transform', `translate(${cx - 70}, ${cy - 65})`);
+          tooltip.style.display = 'block';
+
+          point.setAttribute('r', '8');
+        });
+
+        point.addEventListener('mouseleave', () => {
+          tooltip.style.display = 'none';
+          point.setAttribute('r', '5');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
