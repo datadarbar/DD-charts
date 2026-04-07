@@ -16,9 +16,9 @@ h1{font-size:20px;font-weight:500;color:#0a4c76;margin-bottom:4px}
 .nav button.active{background:#0a4c76;color:#fff;border-color:#0a4c76}
 .section{display:none}.section.active{display:block}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
-.chart-label{font-size:12px;font-weight:500;color:#000;margin-bottom:3px}
-.chart-sub{font-size:10px;color:#999;margin-bottom:6px}
-.chart-container{position:relative;width:100%}
+.cl{font-size:12px;font-weight:500;color:#000;margin-bottom:3px}
+.cs{font-size:10px;color:#999;margin-bottom:6px}
+.cc{position:relative;width:100%}
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
 .kpi{background:#f0f6fb;border-radius:8px;padding:12px 14px}
 .kpi .lbl{font-size:10px;color:#999;margin-bottom:4px}
@@ -31,73 +31,85 @@ footer{margin-top:32px;padding-top:16px;border-top:1px solid #eee;font-size:10px
 </style>
 </head>
 <body>
-<h1>Pakistan Listed Banks — Sector Dashboard</h1>
-<div class="sub">FY2025 Annual Data | PKR Billions | Islamic financing reclassified as advances for full Islamic banks | Source: Company Financials</div>
-
+<h1>Pakistan Listed Banks &#8212; Sector Dashboard</h1>
+<div class="sub">FY2025 | PKR Billions | P&amp;L = annual sum of 4 quarters | BS = Dec 2025 snapshot | Islamic financing included in advances | Source: Company Financials</div>
 <div class="nav">
-  <button class="active" onclick="showTab('pl',event)">P&L Rankings</button>
+  <button class="active" onclick="showTab('pl',event)">P&amp;L Rankings</button>
   <button onclick="showTab('bs',event)">Balance Sheet</button>
   <button onclick="showTab('ratios',event)">Key Ratios</button>
   <button onclick="showTab('trends',event)">Trends</button>
 </div>
 
+<!-- P&L -->
 <div id="pl" class="section active">
   <div class="kpi-row">
-    <div class="kpi"><div class="lbl">Sector PAT</div><div class="val">163</div><div class="s">PKR Bn | FY2025</div></div>
-    <div class="kpi"><div class="lbl">Sector Gross Markup</div><div class="val">1,432</div><div class="s">PKR Bn | FY2025</div></div>
-    <div class="kpi"><div class="lbl">Sector Net Markup</div><div class="val">525</div><div class="s">PKR Bn | FY2025</div></div>
-    <div class="kpi"><div class="lbl">Sector Fee Income</div><div class="val">67</div><div class="s">PKR Bn | FY2025</div></div>
+    <div class="kpi"><div class="lbl">Sector PAT</div><div class="val">667</div><div class="s">PKR Bn | FY2025 annual</div></div>
+    <div class="kpi"><div class="lbl">Sector Gross Markup</div><div class="val">5,389</div><div class="s">PKR Bn | FY2025 annual</div></div>
+    <div class="kpi"><div class="lbl">Sector Net Markup</div><div class="val">1,935</div><div class="s">PKR Bn | FY2025 annual</div></div>
+    <div class="kpi"><div class="lbl">Sector Fee Income</div><div class="val">246</div><div class="s">PKR Bn | FY2025 annual</div></div>
   </div>
   <div class="grid2">
-    <div><div class="chart-label">PAT — FY2025 Ranking</div><div class="chart-sub">PKR Billions</div><div class="chart-container" style="height:420px"><canvas id="c_pat"></canvas></div></div>
-    <div><div class="chart-label">PAT — YoY Growth</div><div class="chart-sub">%</div><div class="chart-container" style="height:420px"><canvas id="c_pat_yoy"></canvas></div></div>
+    <div><div class="cl">PAT &#8212; FY2025</div><div class="cs">PKR Billions | Annual</div><div class="cc" style="height:400px"><canvas id="c_pat"></canvas></div></div>
+    <div><div class="cl">PAT &#8212; YoY Growth</div><div class="cs">FY2025 vs FY2024</div><div class="cc" style="height:400px"><canvas id="c_pat_yoy"></canvas></div></div>
   </div>
   <div class="grid2">
-    <div><div class="chart-label">Gross Markup Income — FY2025</div><div class="chart-sub">PKR Billions</div><div class="chart-container" style="height:420px"><canvas id="c_gross"></canvas></div></div>
-    <div><div class="chart-label">Net Markup Income — FY2025</div><div class="chart-sub">PKR Billions</div><div class="chart-container" style="height:420px"><canvas id="c_net"></canvas></div></div>
+    <div><div class="cl">Gross Markup &#8212; FY2025</div><div class="cs">PKR Billions | Annual</div><div class="cc" style="height:400px"><canvas id="c_gross"></canvas></div></div>
+    <div><div class="cl">Gross Markup &#8212; YoY Growth</div><div class="cs">FY2025 vs FY2024</div><div class="cc" style="height:400px"><canvas id="c_gross_yoy"></canvas></div></div>
   </div>
   <div class="grid2">
-    <div><div class="chart-label">Fee & Commission — FY2025</div><div class="chart-sub">PKR Billions</div><div class="chart-container" style="height:420px"><canvas id="c_fee"></canvas></div></div>
-    <div><div class="chart-label">Gross Markup YoY Growth</div><div class="chart-sub">% — reflects rate cycle compression</div><div class="chart-container" style="height:420px"><canvas id="c_gross_yoy"></canvas></div></div>
+    <div><div class="cl">Net Markup &#8212; FY2025</div><div class="cs">PKR Billions | Annual</div><div class="cc" style="height:400px"><canvas id="c_net"></canvas></div></div>
+    <div><div class="cl">Net Markup &#8212; YoY Growth</div><div class="cs">FY2025 vs FY2024</div><div class="cc" style="height:400px"><canvas id="c_net_yoy"></canvas></div></div>
+  </div>
+  <div class="grid2">
+    <div><div class="cl">Fee &amp; Commission &#8212; FY2025</div><div class="cs">PKR Billions | Annual</div><div class="cc" style="height:400px"><canvas id="c_fee"></canvas></div></div>
+    <div><div class="cl">Fee &amp; Commission &#8212; YoY Growth</div><div class="cs">FY2025 vs FY2024</div><div class="cc" style="height:400px"><canvas id="c_fee_yoy"></canvas></div></div>
+  </div>
+  <div style="margin-bottom:24px">
+    <div class="cl">PAT vs 4-Year CAGR</div><div class="cs">X = 4Y PAT CAGR (%) | Y = PAT FY2025 (PKR Bn)</div>
+    <div class="cc" style="height:420px"><canvas id="c_pat_scatter"></canvas></div>
   </div>
 </div>
 
+<!-- BS -->
 <div id="bs" class="section">
   <div class="kpi-row">
-    <div class="kpi"><div class="lbl">Sector Total Assets</div><div class="val">62,817</div><div class="s">PKR Bn | FY2025</div></div>
-    <div class="kpi"><div class="lbl">Sector Deposits</div><div class="val">44,107</div><div class="s">PKR Bn | FY2025</div></div>
+    <div class="kpi"><div class="lbl">Sector Total Assets</div><div class="val">62,817</div><div class="s">PKR Bn | Dec 2025</div></div>
+    <div class="kpi"><div class="lbl">Sector Deposits</div><div class="val">44,107</div><div class="s">PKR Bn | Dec 2025</div></div>
     <div class="kpi"><div class="lbl">Sector Advances</div><div class="val">16,069</div><div class="s">PKR Bn | incl. Islamic financing</div></div>
-    <div class="kpi"><div class="lbl">Sector Investments</div><div class="val">43,610</div><div class="s">PKR Bn | FY2025</div></div>
+    <div class="kpi"><div class="lbl">Sector Investments</div><div class="val">43,610</div><div class="s">PKR Bn | Dec 2025</div></div>
   </div>
   <div class="grid2">
-    <div><div class="chart-label">Total Assets — FY2025</div><div class="chart-sub">PKR Billions</div><div class="chart-container" style="height:420px"><canvas id="c_assets"></canvas></div></div>
-    <div><div class="chart-label">Total Assets — YoY Growth</div><div class="chart-sub">%</div><div class="chart-container" style="height:420px"><canvas id="c_assets_yoy"></canvas></div></div>
+    <div><div class="cl">Total Assets &#8212; FY2025</div><div class="cs">PKR Billions</div><div class="cc" style="height:400px"><canvas id="c_assets"></canvas></div></div>
+    <div><div class="cl">Total Assets &#8212; YoY Growth</div><div class="cs">%</div><div class="cc" style="height:400px"><canvas id="c_assets_yoy"></canvas></div></div>
   </div>
   <div class="grid2">
-    <div><div class="chart-label">Deposits — FY2025</div><div class="chart-sub">PKR Billions</div><div class="chart-container" style="height:420px"><canvas id="c_dep"></canvas></div></div>
-    <div><div class="chart-label">Asset Mix — Investments vs Advances</div><div class="chart-sub">% of Assets | FY2025</div><div class="chart-container" style="height:420px"><canvas id="c_mix"></canvas></div></div>
+    <div><div class="cl">Deposits &#8212; FY2025</div><div class="cs">PKR Billions</div><div class="cc" style="height:400px"><canvas id="c_dep"></canvas></div></div>
+    <div><div class="cl">Deposits &#8212; YoY Growth</div><div class="cs">%</div><div class="cc" style="height:400px"><canvas id="c_dep_yoy"></canvas></div></div>
   </div>
   <div class="grid2">
-    <div><div class="chart-label">Advances — FY2025</div><div class="chart-sub">PKR Billions | Islamic financing included</div><div class="chart-container" style="height:420px"><canvas id="c_adv"></canvas></div></div>
-    <div><div class="chart-label">Deposits YoY Growth</div><div class="chart-sub">%</div><div class="chart-container" style="height:420px"><canvas id="c_dep_yoy"></canvas></div></div>
+    <div><div class="cl">Advances &#8212; FY2025</div><div class="cs">PKR Billions | Islamic financing included</div><div class="cc" style="height:400px"><canvas id="c_adv"></canvas></div></div>
+    <div><div class="cl">Advances &#8212; YoY Growth</div><div class="cs">%</div><div class="cc" style="height:400px"><canvas id="c_adv_yoy"></canvas></div></div>
   </div>
+
 </div>
 
+<!-- RATIOS -->
 <div id="ratios" class="section">
   <div class="grid2">
-    <div><div class="chart-label">Return on Equity (ROE)</div><div class="chart-sub">FY2025</div><div class="chart-container" style="height:420px"><canvas id="c_roe"></canvas></div></div>
-    <div><div class="chart-label">Return on Assets (ROA %)</div><div class="chart-sub">FY2025</div><div class="chart-container" style="height:420px"><canvas id="c_roa"></canvas></div></div>
+    <div><div class="cl">ROE vs ROA</div><div class="cs">X = ROE (%) | Y = ROA (%) | Equal axis spacing</div><div class="cc" style="height:420px"><canvas id="c_roe_scatter"></canvas></div></div>
+    <div><div class="cl">IDR vs ADR</div><div class="cs">X = Advances/Deposits (%) | Y = Investments/Deposits (%) | Red = IDR &gt;100%</div><div class="cc" style="height:420px"><canvas id="c_idr_scatter"></canvas></div></div>
   </div>
   <div class="grid2">
-    <div><div class="chart-label">Fee Income as % of Total Income</div><div class="chart-sub">FY2025 — diversification indicator</div><div class="chart-container" style="height:420px"><canvas id="c_fee_r"></canvas></div></div>
-    <div><div class="chart-label">Borrowings as % of Total Liabilities</div><div class="chart-sub">FY2025 — funding mix risk</div><div class="chart-container" style="height:420px"><canvas id="c_bor_r"></canvas></div></div>
+    <div><div class="cl">Return on Equity (ROE)</div><div class="cs">FY2025 | PAT annual / Equity Dec 2025</div><div class="cc" style="height:400px"><canvas id="c_roe"></canvas></div></div>
+    <div><div class="cl">Fee Income as % of Total Income</div><div class="cs">FY2025</div><div class="cc" style="height:400px"><canvas id="c_fee_r"></canvas></div></div>
   </div>
   <div class="grid2">
-    <div><div class="chart-label">Advances to Assets Ratio</div><div class="chart-sub">FY2025</div><div class="chart-container" style="height:420px"><canvas id="c_adr_a"></canvas></div></div>
-    <div><div class="chart-label">Investments to Assets Ratio</div><div class="chart-sub">FY2025</div><div class="chart-container" style="height:420px"><canvas id="c_idr_a"></canvas></div></div>
+    <div><div class="cl">Borrowings as % of Total Liabilities</div><div class="cs">FY2025</div><div class="cc" style="height:400px"><canvas id="c_bor_r"></canvas></div></div>
+    <div><div class="cl">Assets vs 4-Year CAGR</div><div class="cs">X = 4Y Asset CAGR (%) | Y = Total Assets FY2025 (PKR Bn)</div><div class="cc" style="height:400px"><canvas id="c_assets_scatter"></canvas></div></div>
   </div>
 </div>
 
+<!-- TRENDS -->
 <div id="trends" class="section">
   <div style="margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
     <span style="font-size:12px;font-weight:500">Metric:</span>
@@ -112,94 +124,283 @@ footer{margin-top:32px;padding-top:16px;border-top:1px solid #eee;font-size:10px
       <option value="equity">Equity</option>
     </select>
     <span style="font-size:12px;font-weight:500">Banks:</span>
-    <select id="trendBanks" multiple size="1" style="width:220px;min-height:120px" onchange="renderTrend()"></select>
+    <select id="trendBanks" multiple style="width:220px;min-height:120px" onchange="renderTrend()"></select>
   </div>
   <div style="font-size:10px;color:#999;margin-bottom:8px">Hold Ctrl/Cmd to select multiple banks.</div>
-  <div class="chart-container" style="height:400px"><canvas id="c_trend"></canvas></div>
-  <div class="note">PKR Billions | Annual (Dec year-end) | Islamic financing reclassified as advances for MEBL, SNBL, BIPL</div>
+  <div class="cc" style="height:420px"><canvas id="c_trend"></canvas></div>
+  <div class="note">PKR Billions | Annual | P&amp;L = sum of 4 quarters | BS = Dec year-end</div>
 </div>
 
-<footer>Pakistan Listed Banks — Sector Dashboard FY2025 | Data: Company Financials | Built with Chart.js</footer>
+<footer>Pakistan Listed Banks Sector Dashboard FY2025 | Source: Company Financials | Built with Chart.js</footer>
 
 <script>
-const D={"gross_mu_25": {"ABL": 297.23, "AKBL": 300.75, "BAFL": 356.93, "BAHL": 337.14, "BIPL": 74.23, "BML": 18.61, "BOK": 52.23, "BOP": 266.45, "FABL": 165.93, "HBL": 634.9, "HMB": 159.26, "JSBL": 71.45, "MCB": 293.83, "MEBL": 420.46, "NBP": 781.11, "SBL": 22.11, "SCBPL": 88.81, "SNBL": 84.38, "UBL": 1184.82}, "net_mu_25": {"ABL": 105.0, "AKBL": 87.37, "BAFL": 135.85, "BAHL": 130.62, "BIPL": 35.65, "BML": -0.86, "BOK": 19.0, "BOP": 81.1, "FABL": 69.63, "HBL": 249.51, "HMB": 66.46, "JSBL": 27.15, "MCB": 145.6, "MEBL": 252.47, "NBP": 248.51, "SBL": 5.59, "SCBPL": 61.46, "SNBL": 27.04, "UBL": 361.56}, "fee_25": {"ABL": 16.52, "AKBL": 7.65, "BAFL": 16.41, "BAHL": 19.14, "BIPL": 3.43, "BML": 1.02, "BOK": 1.07, "BOP": 13.58, "FABL": 12.85, "HBL": 38.43, "HMB": 11.29, "JSBL": 4.95, "MCB": 19.27, "MEBL": 22.7, "NBP": 27.99, "SBL": 0.41, "SCBPL": 7.32, "SNBL": 4.9, "UBL": 27.99}, "pat_25": {"ABL": 35.18, "AKBL": 22.8, "BAFL": 28.34, "BAHL": 30.64, "BIPL": 6.0, "BML": 8.79, "BOK": 5.82, "BOP": 15.94, "FABL": 21.7, "HBL": 62.49, "HMB": 22.58, "JSBL": 2.8, "MCB": 54.2, "MEBL": 89.04, "NBP": 85.91, "SBL": 0.73, "SCBPL": 28.78, "SNBL": 4.56, "UBL": 128.01}, "assets_25": {"ABL": 3370.39, "AKBL": 2895.0, "BAFL": 3829.93, "BAHL": 3303.76, "BIPL": 771.34, "BML": 213.65, "BOK": 453.3, "BOP": 2951.68, "FABL": 1774.73, "HBL": 7267.37, "HMB": 1658.88, "JSBL": 655.64, "MCB": 3247.06, "MEBL": 4806.56, "NBP": 7066.98, "SBL": 206.44, "SCBPL": 872.87, "SNBL": 852.48, "UBL": 12620.19}, "advances_25": {"ABL": 789.68, "AKBL": 586.62, "BAFL": 1104.92, "BAHL": 792.05, "BIPL": 291.75, "BML": 26.13, "BOK": 126.71, "BOP": 881.42, "FABL": 872.0, "HBL": 1849.21, "HMB": 514.78, "JSBL": 249.78, "MCB": 690.32, "MEBL": 1640.93, "NBP": 1338.09, "SBL": 60.61, "SCBPL": 214.15, "SNBL": 214.32, "UBL": 1369.37}, "investments_25": {"ABL": 2156.56, "AKBL": 2048.11, "BAFL": 2198.92, "BAHL": 2042.29, "BIPL": 324.63, "BML": 86.31, "BOK": 275.36, "BOP": 1553.72, "FABL": 640.18, "HBL": 4117.33, "HMB": 873.9, "JSBL": 279.34, "MCB": 1977.47, "MEBL": 2611.22, "NBP": 4998.87, "SBL": 117.74, "SCBPL": 478.54, "SNBL": 484.31, "UBL": 10085.7}, "deposits_25": {"ABL": 2345.86, "AKBL": 1631.33, "BAFL": 2496.21, "BAHL": 2599.09, "BIPL": 660.18, "BML": 169.17, "BOK": 378.12, "BOP": 2051.54, "FABL": 1427.36, "HBL": 5230.77, "HMB": 1119.63, "JSBL": 543.5, "MCB": 2261.28, "MEBL": 3302.84, "NBP": 4429.27, "SBL": 118.93, "SCBPL": 650.14, "SNBL": 689.11, "UBL": 5168.42}, "borrowings_25": {"ABL": 643.73, "AKBL": 994.57, "BAFL": 832.13, "BAHL": 290.26, "BIPL": 14.61, "BML": 7.4, "BOK": 35.7, "BOP": 624.81, "FABL": 121.64, "HBL": 1179.25, "HMB": 272.08, "JSBL": 26.13, "MCB": 457.87, "MEBL": 887.05, "NBP": 1689.66, "SBL": 52.21, "SCBPL": 14.68, "SNBL": 61.64, "UBL": 6530.01}, "equity_25": {"ABL": 263.38, "AKBL": 151.75, "BAFL": 197.51, "BAHL": 171.27, "BIPL": 48.61, "BML": 23.71, "BOK": 23.68, "BOP": 104.14, "FABL": 115.45, "HBL": 446.0, "HMB": 127.81, "JSBL": 46.66, "MCB": 315.74, "MEBL": 279.26, "NBP": 531.42, "SBL": 18.8, "SCBPL": 110.46, "SNBL": 36.79, "UBL": 498.73}, "liabilities_25": {"ABL": 3107.02, "AKBL": 2743.26, "BAFL": 3632.42, "BAHL": 3132.5, "BIPL": 722.73, "BML": 189.94, "BOK": 429.62, "BOP": 2847.54, "FABL": 1659.28, "HBL": 6821.37, "HMB": 1531.07, "JSBL": 608.98, "MCB": 2931.32, "MEBL": 4527.3, "NBP": 6535.56, "SBL": 187.64, "SCBPL": 762.41, "SNBL": 815.69, "UBL": 12121.46}, "roe_25": {"ABL": 0.1336, "AKBL": 0.1503, "BAFL": 0.1435, "BAHL": 0.1789, "BIPL": 0.1235, "BML": 0.371, "BOK": 0.2456, "BOP": 0.153, "FABL": 0.188, "HBL": 0.1401, "HMB": 0.1767, "JSBL": 0.0599, "MCB": 0.1716, "MEBL": 0.3189, "NBP": 0.1617, "SBL": 0.0387, "SCBPL": 0.2605, "SNBL": 0.1239, "UBL": 0.2567}, "roa_25": {"ABL": 1.0437, "AKBL": 0.7877, "BAFL": 0.7399, "BAHL": 0.9273, "BIPL": 0.7782, "BML": 4.1166, "BOK": 1.283, "BOP": 0.54, "FABL": 1.2229, "HBL": 0.8599, "HMB": 1.3614, "JSBL": 0.4264, "MCB": 1.6691, "MEBL": 1.8525, "NBP": 1.2157, "SBL": 0.3523, "SCBPL": 3.2973, "SNBL": 0.5346, "UBL": 1.0143}, "fee_to_income": {"ABL": 0.1237, "AKBL": 0.0728, "BAFL": 0.0895, "BAHL": 0.1203, "BIPL": 0.0759, "BML": 0.1478, "BOK": 0.0461, "BOP": 0.1345, "FABL": 0.1297, "HBL": 0.1198, "HMB": 0.1242, "JSBL": 0.1229, "MCB": 0.1062, "MEBL": 0.0796, "NBP": 0.0898, "SBL": 0.0534, "SCBPL": 0.0908, "SNBL": 0.1394, "UBL": 0.0667}, "borrowings_to_liab": {"ABL": 0.2072, "AKBL": 0.3625, "BAFL": 0.2291, "BAHL": 0.0927, "BIPL": 0.0202, "BML": 0.039, "BOK": 0.0831, "BOP": 0.2194, "FABL": 0.0733, "HBL": 0.1729, "HMB": 0.1777, "JSBL": 0.0429, "MCB": 0.1562, "MEBL": 0.1959, "NBP": 0.2585, "SBL": 0.2782, "SCBPL": 0.0193, "SNBL": 0.0756, "UBL": 0.5387}, "adv_to_assets": {"ABL": 0.2343, "AKBL": 0.2026, "BAFL": 0.2885, "BAHL": 0.2397, "BIPL": 0.3782, "BML": 0.1223, "BOK": 0.2795, "BOP": 0.2986, "FABL": 0.4913, "HBL": 0.2545, "HMB": 0.3103, "JSBL": 0.381, "MCB": 0.2126, "MEBL": 0.3414, "NBP": 0.1893, "SBL": 0.2936, "SCBPL": 0.2453, "SNBL": 0.2514, "UBL": 0.1085}, "inv_to_assets": {"ABL": 0.6399, "AKBL": 0.7075, "BAFL": 0.5741, "BAHL": 0.6182, "BIPL": 0.4209, "BML": 0.404, "BOK": 0.6075, "BOP": 0.5264, "FABL": 0.3607, "HBL": 0.5666, "HMB": 0.5268, "JSBL": 0.4261, "MCB": 0.609, "MEBL": 0.5433, "NBP": 0.7074, "SBL": 0.5703, "SCBPL": 0.5482, "SNBL": 0.5681, "UBL": 0.7992}, "gross_mu_yoy": {"ABL": -0.2111, "AKBL": -0.2501, "BAFL": -0.2959, "BAHL": -0.2947, "BIPL": -0.3419, "BML": -0.5218, "BOK": -0.1992, "BOP": -0.225, "FABL": -0.2627, "HBL": -0.1739, "HMB": -0.3201, "JSBL": -0.3415, "MCB": -0.1994, "MEBL": -0.1494, "NBP": -0.283, "SBL": -0.2302, "SCBPL": -0.4419, "SNBL": -0.2604, "UBL": 0.0924}, "net_mu_yoy": {"ABL": -0.0887, "AKBL": 0.3807, "BAFL": 0.072, "BAHL": -0.164, "BIPL": -0.2315, "BML": 0.7897, "BOK": 0.1522, "BOP": 0.8365, "FABL": -0.1337, "HBL": 0.094, "HMB": -0.0548, "JSBL": -0.0059, "MCB": -0.0234, "MEBL": -0.1204, "NBP": 0.4542, "SBL": -0.2374, "SCBPL": -0.3427, "SNBL": 0.0838, "UBL": 1.085}, "fee_yoy": {"ABL": 0.1733, "AKBL": 0.0976, "BAFL": -0.0687, "BAHL": -0.0154, "BIPL": 0.4848, "BML": 0.02, "BOK": 0.1383, "BOP": 0.1944, "FABL": 0.2273, "HBL": -0.0979, "HMB": 0.0502, "JSBL": 0.0123, "MCB": -0.091, "MEBL": 0.0637, "NBP": 0.0985, "SBL": 0.1081, "SCBPL": 0.0472, "SNBL": 0.129, "UBL": 0.4802}, "pat_yoy": {"ABL": -0.1841, "AKBL": 0.0847, "BAFL": -0.2604, "BAHL": -0.2313, "BIPL": -0.4928, "BML": 2.6839, "BOK": 0.6077, "BOP": 0.1913, "FABL": -0.0578, "HBL": 0.1008, "HMB": -0.0847, "JSBL": -0.0175, "MCB": -0.0592, "MEBL": -0.1228, "NBP": 2.1972, "SBL": 0.0429, "SCBPL": -0.3753, "SNBL": -0.2271, "UBL": 0.5896}, "assets_yoy": {"ABL": 0.1965, "AKBL": 0.1588, "BAFL": 0.0323, "BAHL": -0.0049, "BIPL": 0.0454, "BML": -0.2105, "BOK": -0.0508, "BOP": 0.2402, "FABL": 0.1338, "HBL": 0.284, "HMB": 0.1058, "JSBL": 0.0307, "MCB": 0.2011, "MEBL": 0.2323, "NBP": 0.0479, "SBL": 0.1312, "SCBPL": -0.1744, "SNBL": 0.1528, "UBL": 0.5652}, "deposits_yoy": {"ABL": 0.1622, "AKBL": 0.1962, "BAFL": 0.1681, "BAHL": 0.1405, "BIPL": 0.1806, "BML": -0.0905, "BOK": 0.3619, "BOP": 0.1995, "FABL": 0.3668, "HBL": 0.2786, "HMB": 0.2076, "JSBL": 0.035, "MCB": 0.1764, "MEBL": 0.2778, "NBP": 0.1458, "SBL": 0.11, "SCBPL": -0.222, "SNBL": 0.2687, "UBL": 0.9576}, "advances_yoy": {"ABL": -0.2489, "AKBL": -0.1569, "BAFL": -0.004, "BAHL": -0.1304, "BIPL": -0.0144, "BML": 0.6729, "BOK": -0.1373, "BOP": 0.1338, "FABL": 0.3756, "HBL": -0.1799, "HMB": 0.0853, "JSBL": 0.1076, "MCB": -0.3373, "MEBL": 0.0833, "NBP": -0.0475, "SBL": 0.081, "SCBPL": 0.2482, "SNBL": -0.1194, "UBL": -0.0513}, "pat_cagr4": {"ABL": 0.1939, "AKBL": 0.2382, "BAFL": 0.1882, "BAHL": 0.1313, "BIPL": 0.2955, "BML": null, "BOK": 0.5151, "BOP": 0.0639, "FABL": 0.2773, "HBL": 0.162, "HMB": 0.1382, "JSBL": 0.2099, "MCB": 0.1516, "MEBL": 0.3312, "NBP": 0.3234, "SBL": -0.0202, "SCBPL": 0.2033, "SNBL": 0.1241, "UBL": 0.4269}, "assets_cagr4": {"ABL": 0.1379, "AKBL": 0.2314, "BAFL": 0.219, "BAHL": 0.1561, "BIPL": 0.1723, "BML": 0.1752, "BOK": 0.0603, "BOP": 0.2531, "FABL": 0.1952, "HBL": 0.1556, "HMB": 0.0789, "JSBL": 0.0292, "MCB": 0.133, "MEBL": 0.2607, "NBP": 0.1642, "SBL": 0.0065, "SCBPL": 0.0098, "SNBL": 0.1013, "UBL": 0.4817}, "pat_cagr5": {"ABL": null, "AKBL": null, "BAFL": null, "BAHL": null, "BIPL": null, "BML": null, "BOK": null, "BOP": null, "FABL": null, "HBL": null, "HMB": null, "JSBL": null, "MCB": null, "MEBL": null, "NBP": null, "SBL": null, "SCBPL": null, "SNBL": null, "UBL": null}, "gross_mu_cagr5": {"ABL": null, "AKBL": null, "BAFL": null, "BAHL": null, "BIPL": null, "BML": null, "BOK": null, "BOP": null, "FABL": null, "HBL": null, "HMB": null, "JSBL": null, "MCB": null, "MEBL": null, "NBP": null, "SBL": null, "SCBPL": null, "SNBL": null, "UBL": null}};
-const TS={"gross_mu": {"label": "Gross Markup", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [118.65, 215.47, 357.31, 376.76, 297.23], "AKBL": [77.55, 165.8, 305.64, 401.03, 300.75], "BAFL": [100.4, 213.9, 411.95, 506.9, 356.93], "BAHL": [116.75, 200.92, 373.9, 478.03, 337.14], "BIPL": [23.24, 46.35, 92.76, 112.8, 74.23], "BML": [4.57, 8.14, 31.7, 38.92, 18.61], "BOK": [21.94, 40.24, 59.07, 65.22, 52.23], "BOP": [81.65, 137.17, 327.19, 343.79, 266.45], "FABL": [53.87, 104.52, 189.45, 225.05, 165.93], "HBL": [245.25, 408.97, 670.13, 768.56, 634.9], "HMB": [73.4, 133.17, 205.61, 234.24, 159.26], "JSBL": [39.13, 72.05, 92.09, 108.5, 71.45], "MCB": [123.33, 200.76, 328.06, 367.02, 293.83], "MEBL": [110.07, 232.12, 431.72, 494.3, 420.46], "NBP": [231.88, 503.31, 1024.66, 1089.41, 781.11], "SBL": [13.98, 22.55, 28.71, 28.72, 22.11], "SCBPL": [46.85, 90.43, 151.85, 159.13, 88.81], "SNBL": [37.13, 63.06, 98.03, 114.09, 84.38], "UBL": [147.97, 250.68, 521.37, 1084.58, 1184.82]}}, "net_mu": {"label": "Net Markup", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [45.59, 66.72, 113.28, 115.22, 105.0], "AKBL": [32.41, 39.96, 59.42, 63.28, 87.37], "BAFL": [46.27, 77.34, 126.07, 126.73, 135.85], "BAHL": [55.61, 77.32, 124.15, 156.25, 130.62], "BIPL": [10.93, 20.4, 40.18, 46.39, 35.65], "BML": [-1.11, -2.26, -2.59, -4.09, -0.86], "BOK": [6.79, 7.15, 13.89, 16.49, 19.0], "BOP": [29.88, 30.76, 40.95, 44.16, 81.1], "FABL": [25.83, 39.99, 71.05, 80.38, 69.63], "HBL": [120.95, 152.14, 223.39, 228.08, 249.51], "HMB": [29.5, 40.61, 71.42, 70.31, 66.46], "JSBL": [11.89, 14.86, 22.41, 27.31, 27.15], "MCB": [63.99, 87.16, 147.7, 149.09, 145.6], "MEBL": [68.92, 121.7, 226.43, 287.04, 252.47], "NBP": [97.62, 116.83, 168.75, 170.89, 248.51], "SBL": [4.31, 4.73, 8.1, 7.33, 5.59], "SCBPL": [26.27, 44.6, 94.16, 93.51, 61.46], "SNBL": [10.94, 11.27, 22.76, 24.95, 27.04], "UBL": [71.76, 103.21, 142.88, 173.41, 361.56]}}, "fee": {"label": "Fee & Comm", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [6.81, 8.15, 10.64, 14.08, 16.52], "AKBL": [4.61, 5.45, 7.08, 6.97, 7.65], "BAFL": [8.0, 10.84, 14.81, 17.62, 16.41], "BAHL": [9.3, 11.6, 13.87, 19.44, 19.14], "BIPL": [1.23, 1.46, 1.82, 2.31, 3.43], "BML": [0.47, 0.47, 0.69, 1.0, 1.02], "BOK": [0.43, 0.55, 0.55, 0.94, 1.07], "BOP": [5.1, 7.33, 7.43, 11.37, 13.58], "FABL": [5.09, 6.63, 8.52, 10.47, 12.85], "HBL": [22.24, 27.65, 37.31, 42.6, 38.43], "HMB": [6.91, 7.93, 9.4, 10.75, 11.29], "JSBL": [3.21, 3.21, 4.13, 4.89, 4.95], "MCB": [12.44, 14.18, 20.23, 21.2, 19.27], "MEBL": [9.35, 13.32, 17.41, 21.34, 22.7], "NBP": [17.8, 21.15, 22.03, 25.48, 27.99], "SBL": [0.46, 0.41, 0.38, 0.37, 0.41], "SCBPL": [3.13, 2.99, 5.52, 6.99, 7.32], "SNBL": [2.07, 2.43, 3.09, 4.34, 4.9], "UBL": [13.06, 15.87, 17.53, 18.91, 27.99]}}, "pat": {"label": "PAT", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [17.31, 21.19, 40.68, 43.12, 35.18], "AKBL": [9.7, 14.06, 21.43, 21.02, 22.8], "BAFL": [14.22, 18.21, 36.46, 38.32, 28.34], "BAHL": [18.7, 16.57, 35.32, 39.86, 30.64], "BIPL": [2.13, 4.44, 11.05, 11.83, 6.0], "BML": [-2.89, -3.17, -5.32, -5.22, 8.79], "BOK": [1.1, 0.45, 3.48, 3.62, 5.82], "BOP": [12.44, 10.83, 11.34, 13.38, 15.94], "FABL": [8.15, 11.23, 20.05, 23.03, 21.7], "HBL": [34.27, 30.87, 56.86, 56.77, 62.49], "HMB": [13.46, 14.26, 24.38, 24.67, 22.58], "JSBL": [1.3, 0.96, 4.33, 2.85, 2.8], "MCB": [30.81, 32.74, 59.63, 57.61, 54.2], "MEBL": [28.36, 45.01, 84.48, 101.51, 89.04], "NBP": [28.01, 30.41, 51.84, 26.87, 85.91], "SBL": [0.79, -0.43, 1.24, 0.7, 0.73], "SCBPL": [13.73, 19.84, 42.62, 46.07, 28.78], "SNBL": [2.85, 1.88, 6.08, 5.9, 4.56], "UBL": [30.88, 32.06, 53.18, 80.53, 128.01]}}, "assets": {"label": "Total Assets", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [2010.16, 2250.97, 2329.32, 2816.97, 3370.39], "AKBL": [1259.14, 1526.13, 2124.01, 2498.37, 2895.0], "BAFL": [1734.32, 2253.2, 3345.92, 3710.21, 3829.93], "BAHL": [1849.65, 2272.07, 2744.07, 3320.04, 3303.76], "BIPL": [408.39, 487.24, 654.87, 737.83, 771.34], "BML": [112.02, 140.72, 288.62, 270.6, 213.65], "BOK": [358.61, 344.98, 383.19, 477.56, 453.3], "BOP": [1196.95, 1481.89, 2216.18, 2379.98, 2951.68], "FABL": [869.61, 1074.35, 1370.07, 1565.28, 1774.73], "HBL": [4074.59, 4355.1, 5201.67, 5659.8, 7267.37], "HMB": [1224.42, 1397.44, 1556.42, 1500.13, 1658.88], "JSBL": [584.29, 616.72, 589.43, 636.11, 655.64], "MCB": [1970.47, 2085.36, 2427.18, 2703.34, 3247.06], "MEBL": [1902.97, 2577.4, 3012.11, 3900.41, 4806.56], "NBP": [3846.68, 5240.42, 6652.71, 6744.08, 7066.98], "SBL": [201.14, 179.07, 178.73, 182.49, 206.44], "SCBPL": [839.43, 927.29, 1001.95, 1057.29, 872.87], "SNBL": [579.49, 579.76, 658.56, 739.5, 852.48], "UBL": [2618.17, 2758.75, 5575.0, 8063.13, 12620.19]}}, "advances": {"label": "Advances", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [652.89, 845.64, 781.6, 1051.31, 789.68], "AKBL": [477.59, 583.81, 633.13, 695.76, 586.62], "BAFL": [673.88, 732.37, 735.05, 1109.38, 1104.92], "BAHL": [733.8, 813.53, 869.46, 910.85, 792.05], "BIPL": [181.18, 201.33, 230.19, 296.02, 291.75], "BML": [27.04, 21.59, 18.74, 15.62, 26.13], "BOK": [124.55, 127.52, 101.59, 146.88, 126.71], "BOP": [484.41, 589.58, 806.39, 777.4, 881.42], "FABL": [396.3, 454.26, 580.71, 633.91, 872.0], "HBL": [1384.55, 1622.61, 1664.02, 2254.96, 1849.21], "HMB": [398.38, 433.5, 412.05, 474.3, 514.78], "JSBL": [254.18, 231.1, 203.73, 225.52, 249.78], "MCB": [589.71, 753.4, 577.86, 1041.63, 690.32], "MEBL": [758.09, 995.51, 961.67, 1514.76, 1640.93], "NBP": [1113.39, 1230.52, 1398.08, 1404.87, 1338.09], "SBL": [81.18, 74.45, 73.44, 56.07, 60.61], "SCBPL": [234.17, 216.21, 220.18, 171.57, 214.15], "SNBL": [165.49, 208.43, 205.75, 243.37, 214.32], "UBL": [646.19, 921.84, 613.57, 1443.48, 1369.37]}}, "investments": {"label": "Investments", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [1060.37, 1104.98, 1143.44, 1139.79, 2156.56], "AKBL": [611.4, 754.98, 1176.17, 1515.01, 2048.11], "BAFL": [807.99, 1106.86, 2066.36, 2007.14, 2198.92], "BAHL": [825.94, 1152.89, 1505.03, 1930.6, 2042.29], "BIPL": [126.23, 180.87, 317.29, 350.9, 324.63], "BML": [31.18, 51.44, 180.08, 175.79, 86.31], "BOK": [183.91, 172.63, 222.53, 283.52, 275.36], "BOP": [525.24, 630.44, 910.27, 1321.93, 1553.72], "FABL": [357.58, 467.61, 592.89, 688.64, 640.18], "HBL": [1903.14, 1857.05, 2483.78, 2414.29, 4117.33], "HMB": [666.24, 718.79, 923.86, 818.34, 873.9], "JSBL": [232.41, 303.01, 287.88, 303.85, 279.34], "MCB": [1030.85, 959.65, 1237.5, 1174.89, 1977.47], "MEBL": [624.17, 1282.54, 1583.31, 1892.68, 2611.22], "NBP": [1958.06, 3473.1, 4420.25, 4682.04, 4998.87], "SBL": [93.44, 76.15, 70.14, 100.25, 117.74], "SCBPL": [450.1, 477.83, 226.76, 655.88, 478.54], "SNBL": [325.1, 255.09, 309.21, 385.99, 484.31], "UBL": [1494.5, 1394.51, 4388.97, 5925.73, 10085.7]}}, "deposits": {"label": "Deposits", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [1413.3, 1522.3, 1676.62, 2018.4, 2345.86], "AKBL": [1015.43, 1142.57, 1293.15, 1363.74, 1631.33], "BAFL": [1139.04, 1486.85, 2085.0, 2136.91, 2496.21], "BAHL": [1309.82, 1568.14, 1934.04, 2278.96, 2599.09], "BIPL": [344.79, 415.91, 522.54, 559.18, 660.18], "BML": [109.48, 121.92, 156.96, 186.01, 169.17], "BOK": [221.88, 248.91, 289.29, 277.64, 378.12], "BOP": [1002.95, 1227.34, 1520.85, 1710.29, 2051.54], "FABL": [644.09, 781.57, 1018.28, 1044.28, 1427.36], "HBL": [3184.26, 3234.18, 3870.18, 4091.17, 5230.77], "HMB": [772.29, 880.7, 1012.3, 927.13, 1119.63], "JSBL": [460.71, 464.13, 486.28, 525.13, 543.5], "MCB": [1411.85, 1378.72, 1805.39, 1922.21, 2261.28], "MEBL": [1455.89, 1658.49, 2217.47, 2584.87, 3302.84], "NBP": [3019.16, 2666.18, 3674.36, 3865.56, 4429.27], "SBL": [79.27, 105.24, 114.73, 107.14, 118.93], "SCBPL": [626.77, 718.45, 719.53, 835.69, 650.14], "SNBL": [403.04, 409.64, 517.87, 543.15, 689.11], "UBL": [1750.94, 1838.37, 2350.54, 2640.21, 5168.42]}}, "equity": {"label": "Equity", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [127.24, 127.81, 194.25, 233.9, 263.38], "AKBL": [55.9, 73.32, 97.12, 121.63, 151.75], "BAFL": [100.0, 100.01, 137.92, 178.11, 197.51], "BAHL": [90.02, 95.24, 129.66, 151.99, 171.27], "BIPL": [22.51, 26.45, 36.47, 48.31, 48.61], "BML": [-14.4, -17.65, -12.81, -18.15, 23.71], "BOK": [16.57, 16.43, 20.3, 21.9, 23.68], "BOP": [54.83, 65.05, 80.75, 92.53, 104.14], "FABL": [65.82, 70.08, 90.2, 108.36, 115.45], "HBL": [257.93, 253.78, 333.78, 377.79, 446.0], "HMB": [62.97, 74.51, 93.28, 115.03, 127.81], "JSBL": [22.02, 21.55, 40.32, 43.71, 46.66], "MCB": [174.41, 189.49, 230.71, 270.26, 315.74], "MEBL": [86.56, 115.32, 184.91, 246.98, 279.26], "NBP": [286.2, 300.85, 382.76, 456.95, 531.42], "SBL": [15.9, 14.65, 16.36, 17.23, 18.8], "SCBPL": [79.61, 87.52, 96.22, 117.72, 110.46], "SNBL": [21.64, 21.15, 28.61, 30.81, 36.79], "UBL": [204.64, 209.02, 252.5, 316.22, 498.73]}}};
-const PRIMARY='#0a4c76';
-const PALETTE=['#0a4c76','#1a6fa0','#2d93c9','#6ab4d8','#a8d5e8','#c8e6f0','#0d3d5e','#164f72','#0e5a8a','#1870a8','#2286c6','#3a9fd4','#5ab5de','#7dcce8','#a0dff0','#c0eef8','#d6f3fc','#e8f9ff','#b0ccd9','#808080'];
-const charts={};
+var D  = {"gross_mu_25": {"ABL": 297.23, "AKBL": 300.75, "BAFL": 356.93, "BAHL": 337.14, "BIPL": 74.23, "BOK": 52.23, "BOP": 266.45, "FABL": 165.93, "HBL": 634.9, "HMB": 159.26, "JSBL": 71.45, "MCB": 293.83, "MEBL": 420.46, "NBP": 781.11, "SBL": 22.11, "SCBPL": 88.81, "SNBL": 84.38, "UBL": 1184.82}, "net_mu_25": {"ABL": 105.0, "AKBL": 87.37, "BAFL": 135.85, "BAHL": 130.62, "BIPL": 35.65, "BOK": 19.0, "BOP": 81.1, "FABL": 69.63, "HBL": 249.51, "HMB": 66.46, "JSBL": 27.15, "MCB": 145.6, "MEBL": 252.47, "NBP": 248.51, "SBL": 5.59, "SCBPL": 61.46, "SNBL": 27.04, "UBL": 361.56}, "fee_25": {"ABL": 16.52, "AKBL": 7.65, "BAFL": 16.41, "BAHL": 19.14, "BIPL": 3.43, "BOK": 1.07, "BOP": 13.58, "FABL": 12.85, "HBL": 38.43, "HMB": 11.29, "JSBL": 4.95, "MCB": 19.27, "MEBL": 22.7, "NBP": 27.99, "SBL": 0.41, "SCBPL": 7.32, "SNBL": 4.9, "UBL": 27.99}, "pat_25": {"ABL": 35.18, "AKBL": 22.8, "BAFL": 28.34, "BAHL": 30.64, "BIPL": 6.0, "BOK": 5.82, "BOP": 15.94, "FABL": 21.7, "HBL": 62.49, "HMB": 22.58, "JSBL": 2.8, "MCB": 54.2, "MEBL": 89.04, "NBP": 85.91, "SBL": 0.73, "SCBPL": 28.78, "SNBL": 4.56, "UBL": 128.01}, "assets_25": {"ABL": 3370.39, "AKBL": 2895.0, "BAFL": 3829.93, "BAHL": 3303.76, "BIPL": 771.34, "BOK": 453.3, "BOP": 2951.68, "FABL": 1774.73, "HBL": 7267.37, "HMB": 1658.88, "JSBL": 655.64, "MCB": 3247.06, "MEBL": 4806.56, "NBP": 7066.98, "SBL": 206.44, "SCBPL": 872.87, "SNBL": 852.48, "UBL": 12620.19}, "advances_25": {"ABL": 789.68, "AKBL": 586.62, "BAFL": 1104.92, "BAHL": 792.05, "BIPL": 291.75, "BOK": 126.71, "BOP": 881.42, "FABL": 872.0, "HBL": 1849.21, "HMB": 514.78, "JSBL": 249.78, "MCB": 690.32, "MEBL": 1640.93, "NBP": 1338.09, "SBL": 60.61, "SCBPL": 214.15, "SNBL": 214.32, "UBL": 1369.37}, "investments_25": {"ABL": 2156.56, "AKBL": 2048.11, "BAFL": 2198.92, "BAHL": 2042.29, "BIPL": 324.63, "BOK": 275.36, "BOP": 1553.72, "FABL": 640.18, "HBL": 4117.33, "HMB": 873.9, "JSBL": 279.34, "MCB": 1977.47, "MEBL": 2611.22, "NBP": 4998.87, "SBL": 117.74, "SCBPL": 478.54, "SNBL": 484.31, "UBL": 10085.7}, "deposits_25": {"ABL": 2345.86, "AKBL": 1631.33, "BAFL": 2496.21, "BAHL": 2599.09, "BIPL": 660.18, "BOK": 378.12, "BOP": 2051.54, "FABL": 1427.36, "HBL": 5230.77, "HMB": 1119.63, "JSBL": 543.5, "MCB": 2261.28, "MEBL": 3302.84, "NBP": 4429.27, "SBL": 118.93, "SCBPL": 650.14, "SNBL": 689.11, "UBL": 5168.42}, "borrowings_25": {"ABL": 643.73, "AKBL": 994.57, "BAFL": 832.13, "BAHL": 290.26, "BIPL": 14.61, "BOK": 35.7, "BOP": 624.81, "FABL": 121.64, "HBL": 1179.25, "HMB": 272.08, "JSBL": 26.13, "MCB": 457.87, "MEBL": 887.05, "NBP": 1689.66, "SBL": 52.21, "SCBPL": 14.68, "SNBL": 61.64, "UBL": 6530.01}, "equity_25": {"ABL": 263.38, "AKBL": 151.75, "BAFL": 197.51, "BAHL": 171.27, "BIPL": 48.61, "BOK": 23.68, "BOP": 104.14, "FABL": 115.45, "HBL": 446.0, "HMB": 127.81, "JSBL": 46.66, "MCB": 315.74, "MEBL": 279.26, "NBP": 531.42, "SBL": 18.8, "SCBPL": 110.46, "SNBL": 36.79, "UBL": 498.73}, "liabilities_25": {"ABL": 3107.02, "AKBL": 2743.26, "BAFL": 3632.42, "BAHL": 3132.5, "BIPL": 722.73, "BOK": 429.62, "BOP": 2847.54, "FABL": 1659.28, "HBL": 6821.37, "HMB": 1531.07, "JSBL": 608.98, "MCB": 2931.32, "MEBL": 4527.3, "NBP": 6535.56, "SBL": 187.64, "SCBPL": 762.41, "SNBL": 815.69, "UBL": 12121.46}, "roe_25": {"ABL": 0.1336, "AKBL": 0.1503, "BAFL": 0.1435, "BAHL": 0.1789, "BIPL": 0.1235, "BOK": 0.2456, "BOP": 0.153, "FABL": 0.188, "HBL": 0.1401, "HMB": 0.1767, "JSBL": 0.0599, "MCB": 0.1716, "MEBL": 0.3189, "NBP": 0.1617, "SBL": 0.0387, "SCBPL": 0.2605, "SNBL": 0.1239, "UBL": 0.2567}, "roa_25": {"ABL": 1.0437, "AKBL": 0.7877, "BAFL": 0.7399, "BAHL": 0.9273, "BIPL": 0.7782, "BOK": 1.283, "BOP": 0.54, "FABL": 1.2229, "HBL": 0.8599, "HMB": 1.3614, "JSBL": 0.4264, "MCB": 1.6691, "MEBL": 1.8525, "NBP": 1.2157, "SBL": 0.3523, "SCBPL": 3.2973, "SNBL": 0.5346, "UBL": 1.0143}, "fee_to_income": {"ABL": 0.1237, "AKBL": 0.0728, "BAFL": 0.0895, "BAHL": 0.1203, "BIPL": 0.0759, "BOK": 0.0461, "BOP": 0.1345, "FABL": 0.1297, "HBL": 0.1198, "HMB": 0.1242, "JSBL": 0.1229, "MCB": 0.1062, "MEBL": 0.0796, "NBP": 0.0898, "SBL": 0.0534, "SCBPL": 0.0908, "SNBL": 0.1394, "UBL": 0.0667}, "borrowings_to_liab": {"ABL": 0.2072, "AKBL": 0.3625, "BAFL": 0.2291, "BAHL": 0.0927, "BIPL": 0.0202, "BOK": 0.0831, "BOP": 0.2194, "FABL": 0.0733, "HBL": 0.1729, "HMB": 0.1777, "JSBL": 0.0429, "MCB": 0.1562, "MEBL": 0.1959, "NBP": 0.2585, "SBL": 0.2782, "SCBPL": 0.0193, "SNBL": 0.0756, "UBL": 0.5387}, "adv_to_assets": {"ABL": 0.2343, "AKBL": 0.2026, "BAFL": 0.2885, "BAHL": 0.2397, "BIPL": 0.3782, "BOK": 0.2795, "BOP": 0.2986, "FABL": 0.4913, "HBL": 0.2545, "HMB": 0.3103, "JSBL": 0.381, "MCB": 0.2126, "MEBL": 0.3414, "NBP": 0.1893, "SBL": 0.2936, "SCBPL": 0.2453, "SNBL": 0.2514, "UBL": 0.1085}, "inv_to_assets": {"ABL": 0.6399, "AKBL": 0.7075, "BAFL": 0.5741, "BAHL": 0.6182, "BIPL": 0.4209, "BOK": 0.6075, "BOP": 0.5264, "FABL": 0.3607, "HBL": 0.5666, "HMB": 0.5268, "JSBL": 0.4261, "MCB": 0.609, "MEBL": 0.5433, "NBP": 0.7074, "SBL": 0.5703, "SCBPL": 0.5482, "SNBL": 0.5681, "UBL": 0.7992}, "gross_mu_yoy": {"ABL": -0.2111, "AKBL": -0.2501, "BAFL": -0.2959, "BAHL": -0.2947, "BIPL": -0.3419, "BOK": -0.1992, "BOP": -0.225, "FABL": -0.2627, "HBL": -0.1739, "HMB": -0.3201, "JSBL": -0.3415, "MCB": -0.1994, "MEBL": -0.1494, "NBP": -0.283, "SBL": -0.2302, "SCBPL": -0.4419, "SNBL": -0.2604, "UBL": 0.0924}, "net_mu_yoy": {"ABL": -0.0887, "AKBL": 0.3807, "BAFL": 0.072, "BAHL": -0.164, "BIPL": -0.2315, "BOK": 0.1522, "BOP": 0.8365, "FABL": -0.1337, "HBL": 0.094, "HMB": -0.0548, "JSBL": -0.0059, "MCB": -0.0234, "MEBL": -0.1204, "NBP": 0.4542, "SBL": -0.2374, "SCBPL": -0.3427, "SNBL": 0.0838, "UBL": 1.085}, "fee_yoy": {"ABL": 0.1733, "AKBL": 0.0976, "BAFL": -0.0687, "BAHL": -0.0154, "BIPL": 0.4848, "BOK": 0.1383, "BOP": 0.1944, "FABL": 0.2273, "HBL": -0.0979, "HMB": 0.0502, "JSBL": 0.0123, "MCB": -0.091, "MEBL": 0.0637, "NBP": 0.0985, "SBL": 0.1081, "SCBPL": 0.0472, "SNBL": 0.129, "UBL": 0.4802}, "pat_yoy": {"ABL": -0.1841, "AKBL": 0.0847, "BAFL": -0.2604, "BAHL": -0.2313, "BIPL": -0.4928, "BOK": 0.6077, "BOP": 0.1913, "FABL": -0.0578, "HBL": 0.1008, "HMB": -0.0847, "JSBL": -0.0175, "MCB": -0.0592, "MEBL": -0.1228, "NBP": 2.1972, "SBL": 0.0429, "SCBPL": -0.3753, "SNBL": -0.2271, "UBL": 0.5896}, "assets_yoy": {"ABL": 0.1965, "AKBL": 0.1588, "BAFL": 0.0323, "BAHL": -0.0049, "BIPL": 0.0454, "BOK": -0.0508, "BOP": 0.2402, "FABL": 0.1338, "HBL": 0.284, "HMB": 0.1058, "JSBL": 0.0307, "MCB": 0.2011, "MEBL": 0.2323, "NBP": 0.0479, "SBL": 0.1312, "SCBPL": -0.1744, "SNBL": 0.1528, "UBL": 0.5652}, "deposits_yoy": {"ABL": 0.1622, "AKBL": 0.1962, "BAFL": 0.1681, "BAHL": 0.1405, "BIPL": 0.1806, "BOK": 0.3619, "BOP": 0.1995, "FABL": 0.3668, "HBL": 0.2786, "HMB": 0.2076, "JSBL": 0.035, "MCB": 0.1764, "MEBL": 0.2778, "NBP": 0.1458, "SBL": 0.11, "SCBPL": -0.222, "SNBL": 0.2687, "UBL": 0.9576}, "advances_yoy": {"ABL": -0.2489, "AKBL": -0.1569, "BAFL": -0.004, "BAHL": -0.1304, "BIPL": -0.0144, "BOK": -0.1373, "BOP": 0.1338, "FABL": 0.3756, "HBL": -0.1799, "HMB": 0.0853, "JSBL": 0.1076, "MCB": -0.3373, "MEBL": 0.0833, "NBP": -0.0475, "SBL": 0.081, "SCBPL": 0.2482, "SNBL": -0.1194, "UBL": -0.0513}, "pat_cagr4": {"ABL": 0.1939, "AKBL": 0.2382, "BAFL": 0.1882, "BAHL": 0.1313, "BIPL": 0.2955, "BOK": 0.5151, "BOP": 0.0639, "FABL": 0.2773, "HBL": 0.162, "HMB": 0.1382, "JSBL": 0.2099, "MCB": 0.1516, "MEBL": 0.3312, "NBP": 0.3234, "SBL": -0.0202, "SCBPL": 0.2033, "SNBL": 0.1241, "UBL": 0.4269}, "assets_cagr4": {"ABL": 0.1379, "AKBL": 0.2314, "BAFL": 0.219, "BAHL": 0.1561, "BIPL": 0.1723, "BOK": 0.0603, "BOP": 0.2531, "FABL": 0.1952, "HBL": 0.1556, "HMB": 0.0789, "JSBL": 0.0292, "MCB": 0.133, "MEBL": 0.2607, "NBP": 0.1642, "SBL": 0.0065, "SCBPL": 0.0098, "SNBL": 0.1013, "UBL": 0.4817}, "pat_cagr5": {"ABL": null, "AKBL": null, "BAFL": null, "BAHL": null, "BIPL": null, "BOK": null, "BOP": null, "FABL": null, "HBL": null, "HMB": null, "JSBL": null, "MCB": null, "MEBL": null, "NBP": null, "SBL": null, "SCBPL": null, "SNBL": null, "UBL": null}, "gross_mu_cagr5": {"ABL": null, "AKBL": null, "BAFL": null, "BAHL": null, "BIPL": null, "BOK": null, "BOP": null, "FABL": null, "HBL": null, "HMB": null, "JSBL": null, "MCB": null, "MEBL": null, "NBP": null, "SBL": null, "SCBPL": null, "SNBL": null, "UBL": null}};
+var SD = {"ABL": {"investments": 2156.56, "advances": 789.68, "deposits": 2345.86, "assets": 3370.39, "borrowings": 643.73, "equity": 263.38, "liabilities": 3107.02, "pat": 35.18, "gross_mu": 297.23, "net_mu": 105.0, "fee": 16.52, "idr": 0.9193, "adr": 0.3366, "inv_to_assets": 0.6399, "adv_to_assets": 0.2343, "bor_to_liab": 0.2072, "dep_to_assets": 0.696, "roe": 0.1336, "roa": 1.0437, "fee_to_income": 0.1237, "inv_cagr4": 0.1942, "adv_cagr4": 0.0487, "dep_cagr4": 0.1351, "assets_cagr4": 0.1379, "pat_cagr4": 0.1939, "gmu_cagr4": 0.2581, "inv_cagr3": 0.2497, "adv_cagr3": -0.0226, "dep_cagr3": 0.155, "assets_cagr3": 0.144, "pat_cagr3": 0.184}, "AKBL": {"investments": 2048.11, "advances": 586.62, "deposits": 1631.33, "assets": 2895.0, "borrowings": 994.57, "equity": 151.75, "liabilities": 2743.26, "pat": 22.8, "gross_mu": 300.75, "net_mu": 87.37, "fee": 7.65, "idr": 1.2555, "adr": 0.3596, "inv_to_assets": 0.7075, "adv_to_assets": 0.2026, "bor_to_liab": 0.3625, "dep_to_assets": 0.5635, "roe": 0.1503, "roa": 0.7877, "fee_to_income": 0.0728, "inv_cagr4": 0.3529, "adv_cagr4": 0.0528, "dep_cagr4": 0.1258, "assets_cagr4": 0.2314, "pat_cagr4": 0.2382, "gmu_cagr4": 0.4033, "inv_cagr3": 0.3947, "adv_cagr3": 0.0016, "dep_cagr3": 0.126, "assets_cagr3": 0.2379, "pat_cagr3": 0.1749}, "BAFL": {"investments": 2198.92, "advances": 1104.92, "deposits": 2496.21, "assets": 3829.93, "borrowings": 832.13, "equity": 197.51, "liabilities": 3632.42, "pat": 28.34, "gross_mu": 356.93, "net_mu": 135.85, "fee": 16.41, "idr": 0.8809, "adr": 0.4426, "inv_to_assets": 0.5741, "adv_to_assets": 0.2885, "bor_to_liab": 0.2291, "dep_to_assets": 0.6518, "roe": 0.1435, "roa": 0.7399, "fee_to_income": 0.0895, "inv_cagr4": 0.2844, "adv_cagr4": 0.1316, "dep_cagr4": 0.2167, "assets_cagr4": 0.219, "pat_cagr4": 0.1882, "gmu_cagr4": 0.3731, "inv_cagr3": 0.2571, "adv_cagr3": 0.1469, "dep_cagr3": 0.1885, "assets_cagr3": 0.1934, "pat_cagr3": 0.1589}, "BAHL": {"investments": 2042.29, "advances": 792.05, "deposits": 2599.09, "assets": 3303.76, "borrowings": 290.26, "equity": 171.27, "liabilities": 3132.5, "pat": 30.64, "gross_mu": 337.14, "net_mu": 130.62, "fee": 19.14, "idr": 0.7858, "adr": 0.3047, "inv_to_assets": 0.6182, "adv_to_assets": 0.2397, "bor_to_liab": 0.0927, "dep_to_assets": 0.7867, "roe": 0.1789, "roa": 0.9273, "fee_to_income": 0.1203, "inv_cagr4": 0.254, "adv_cagr4": 0.0193, "dep_cagr4": 0.1869, "assets_cagr4": 0.1561, "pat_cagr4": 0.1313, "gmu_cagr4": 0.3036, "inv_cagr3": 0.21, "adv_cagr3": -0.0089, "dep_cagr3": 0.1834, "assets_cagr3": 0.1329, "pat_cagr3": 0.2274}, "BIPL": {"investments": 324.63, "advances": 291.75, "deposits": 660.18, "assets": 771.34, "borrowings": 14.61, "equity": 48.61, "liabilities": 722.73, "pat": 6.0, "gross_mu": 74.23, "net_mu": 35.65, "fee": 3.43, "idr": 0.4917, "adr": 0.4419, "inv_to_assets": 0.4209, "adv_to_assets": 0.3782, "bor_to_liab": 0.0202, "dep_to_assets": 0.8559, "roe": 0.1235, "roa": 0.7782, "fee_to_income": 0.0759, "inv_cagr4": 0.2664, "adv_cagr4": 0.1265, "dep_cagr4": 0.1763, "assets_cagr4": 0.1723, "pat_cagr4": 0.2955, "gmu_cagr4": 0.3369, "inv_cagr3": 0.2153, "adv_cagr3": 0.1316, "dep_cagr3": 0.1665, "assets_cagr3": 0.1655, "pat_cagr3": 0.1058}, "BOK": {"investments": 275.36, "advances": 126.71, "deposits": 378.12, "assets": 453.3, "borrowings": 35.7, "equity": 23.68, "liabilities": 429.62, "pat": 5.82, "gross_mu": 52.23, "net_mu": 19.0, "fee": 1.07, "idr": 0.7282, "adr": 0.3351, "inv_to_assets": 0.6075, "adv_to_assets": 0.2795, "bor_to_liab": 0.0831, "dep_to_assets": 0.8342, "roe": 0.2456, "roa": 1.283, "fee_to_income": 0.0461, "inv_cagr4": 0.1062, "adv_cagr4": 0.0043, "dep_cagr4": 0.1426, "assets_cagr4": 0.0603, "pat_cagr4": 0.5151, "gmu_cagr4": 0.2422, "inv_cagr3": 0.1684, "adv_cagr3": -0.0021, "dep_cagr3": 0.1496, "assets_cagr3": 0.0953, "pat_cagr3": 1.3383}, "BOP": {"investments": 1553.72, "advances": 881.42, "deposits": 2051.54, "assets": 2951.68, "borrowings": 624.81, "equity": 104.14, "liabilities": 2847.54, "pat": 15.94, "gross_mu": 266.45, "net_mu": 81.1, "fee": 13.58, "idr": 0.7573, "adr": 0.4296, "inv_to_assets": 0.5264, "adv_to_assets": 0.2986, "bor_to_liab": 0.2194, "dep_to_assets": 0.695, "roe": 0.153, "roa": 0.54, "fee_to_income": 0.1345, "inv_cagr4": 0.3115, "adv_cagr4": 0.1614, "dep_cagr4": 0.1959, "assets_cagr4": 0.2531, "pat_cagr4": 0.0639, "gmu_cagr4": 0.344, "inv_cagr3": 0.3508, "adv_cagr3": 0.1434, "dep_cagr3": 0.1868, "assets_cagr3": 0.2582, "pat_cagr3": 0.1373}, "FABL": {"investments": 640.18, "advances": 872.0, "deposits": 1427.36, "assets": 1774.73, "borrowings": 121.64, "equity": 115.45, "liabilities": 1659.28, "pat": 21.7, "gross_mu": 165.93, "net_mu": 69.63, "fee": 12.85, "idr": 0.4485, "adr": 0.6109, "inv_to_assets": 0.3607, "adv_to_assets": 0.4913, "bor_to_liab": 0.0733, "dep_to_assets": 0.8043, "roe": 0.188, "roa": 1.2229, "fee_to_income": 0.1297, "inv_cagr4": 0.1567, "adv_cagr4": 0.2179, "dep_cagr4": 0.2201, "assets_cagr4": 0.1952, "pat_cagr4": 0.2773, "gmu_cagr4": 0.3248, "inv_cagr3": 0.1104, "adv_cagr3": 0.2428, "dep_cagr3": 0.2223, "assets_cagr3": 0.1821, "pat_cagr3": 0.2455}, "HBL": {"investments": 4117.33, "advances": 1849.21, "deposits": 5230.77, "assets": 7267.37, "borrowings": 1179.25, "equity": 446.0, "liabilities": 6821.37, "pat": 62.49, "gross_mu": 634.9, "net_mu": 249.51, "fee": 38.43, "idr": 0.7871, "adr": 0.3535, "inv_to_assets": 0.5666, "adv_to_assets": 0.2545, "bor_to_liab": 0.1729, "dep_to_assets": 0.7198, "roe": 0.1401, "roa": 0.8599, "fee_to_income": 0.1198, "inv_cagr4": 0.2128, "adv_cagr4": 0.075, "dep_cagr4": 0.1321, "assets_cagr4": 0.1556, "pat_cagr4": 0.162, "gmu_cagr4": 0.2684, "inv_cagr3": 0.304, "adv_cagr3": 0.0445, "dep_cagr3": 0.1738, "assets_cagr3": 0.1861, "pat_cagr3": 0.2651}, "HMB": {"investments": 873.9, "advances": 514.78, "deposits": 1119.63, "assets": 1658.88, "borrowings": 272.08, "equity": 127.81, "liabilities": 1531.07, "pat": 22.58, "gross_mu": 159.26, "net_mu": 66.46, "fee": 11.29, "idr": 0.7805, "adr": 0.4598, "inv_to_assets": 0.5268, "adv_to_assets": 0.3103, "bor_to_liab": 0.1777, "dep_to_assets": 0.6749, "roe": 0.1767, "roa": 1.3614, "fee_to_income": 0.1242, "inv_cagr4": 0.0702, "adv_cagr4": 0.0662, "dep_cagr4": 0.0973, "assets_cagr4": 0.0789, "pat_cagr4": 0.1382, "gmu_cagr4": 0.2137, "inv_cagr3": 0.0673, "adv_cagr3": 0.059, "dep_cagr3": 0.0833, "assets_cagr3": 0.0588, "pat_cagr3": 0.1656}, "JSBL": {"investments": 279.34, "advances": 249.78, "deposits": 543.5, "assets": 655.64, "borrowings": 26.13, "equity": 46.66, "liabilities": 608.98, "pat": 2.8, "gross_mu": 71.45, "net_mu": 27.15, "fee": 4.95, "idr": 0.514, "adr": 0.4596, "inv_to_assets": 0.4261, "adv_to_assets": 0.381, "bor_to_liab": 0.0429, "dep_to_assets": 0.829, "roe": 0.0599, "roa": 0.4264, "fee_to_income": 0.1229, "inv_cagr4": 0.0471, "adv_cagr4": -0.0044, "dep_cagr4": 0.0422, "assets_cagr4": 0.0292, "pat_cagr4": 0.2099, "gmu_cagr4": 0.1625, "inv_cagr3": -0.0267, "adv_cagr3": 0.0262, "dep_cagr3": 0.054, "assets_cagr3": 0.0206, "pat_cagr3": 0.4257}, "MCB": {"investments": 1977.47, "advances": 690.32, "deposits": 2261.28, "assets": 3247.06, "borrowings": 457.87, "equity": 315.74, "liabilities": 2931.32, "pat": 54.2, "gross_mu": 293.83, "net_mu": 145.6, "fee": 19.27, "idr": 0.8745, "adr": 0.3053, "inv_to_assets": 0.609, "adv_to_assets": 0.2126, "bor_to_liab": 0.1562, "dep_to_assets": 0.6964, "roe": 0.1716, "roa": 1.6691, "fee_to_income": 0.1062, "inv_cagr4": 0.1769, "adv_cagr4": 0.0402, "dep_cagr4": 0.125, "assets_cagr4": 0.133, "pat_cagr4": 0.1516, "gmu_cagr4": 0.2424, "inv_cagr3": 0.2725, "adv_cagr3": -0.0287, "dep_cagr3": 0.1793, "assets_cagr3": 0.1591, "pat_cagr3": 0.1829}, "MEBL": {"investments": 2611.22, "advances": 1640.93, "deposits": 3302.84, "assets": 4806.56, "borrowings": 887.05, "equity": 279.26, "liabilities": 4527.3, "pat": 89.04, "gross_mu": 420.46, "net_mu": 252.47, "fee": 22.7, "idr": 0.7906, "adr": 0.4968, "inv_to_assets": 0.5433, "adv_to_assets": 0.3414, "bor_to_liab": 0.1959, "dep_to_assets": 0.6872, "roe": 0.3189, "roa": 1.8525, "fee_to_income": 0.0796, "inv_cagr4": 0.4302, "adv_cagr4": 0.213, "dep_cagr4": 0.2273, "assets_cagr4": 0.2607, "pat_cagr4": 0.3312, "gmu_cagr4": 0.398, "inv_cagr3": 0.2674, "adv_cagr3": 0.1813, "dep_cagr3": 0.2581, "assets_cagr3": 0.2309, "pat_cagr3": 0.2554}, "NBP": {"investments": 4998.87, "advances": 1338.09, "deposits": 4429.27, "assets": 7066.98, "borrowings": 1689.66, "equity": 531.42, "liabilities": 6535.56, "pat": 85.91, "gross_mu": 781.11, "net_mu": 248.51, "fee": 27.99, "idr": 1.1286, "adr": 0.3021, "inv_to_assets": 0.7074, "adv_to_assets": 0.1893, "bor_to_liab": 0.2585, "dep_to_assets": 0.6268, "roe": 0.1617, "roa": 1.2157, "fee_to_income": 0.0898, "inv_cagr4": 0.264, "adv_cagr4": 0.047, "dep_cagr4": 0.1006, "assets_cagr4": 0.1642, "pat_cagr4": 0.3234, "gmu_cagr4": 0.3548, "inv_cagr3": 0.1291, "adv_cagr3": 0.0283, "dep_cagr3": 0.1844, "assets_cagr3": 0.1048, "pat_cagr3": 0.4137}, "SBL": {"investments": 117.74, "advances": 60.61, "deposits": 118.93, "assets": 206.44, "borrowings": 52.21, "equity": 18.8, "liabilities": 187.64, "pat": 0.73, "gross_mu": 22.11, "net_mu": 5.59, "fee": 0.41, "idr": 0.99, "adr": 0.5096, "inv_to_assets": 0.5703, "adv_to_assets": 0.2936, "bor_to_liab": 0.2782, "dep_to_assets": 0.5761, "roe": 0.0387, "roa": 0.3523, "fee_to_income": 0.0534, "inv_cagr4": 0.0595, "adv_cagr4": -0.0704, "dep_cagr4": 0.1067, "assets_cagr4": 0.0065, "pat_cagr4": -0.0202, "gmu_cagr4": 0.1214, "inv_cagr3": 0.1563, "adv_cagr3": -0.0663, "dep_cagr3": 0.0416, "assets_cagr3": 0.0485, "pat_cagr3": null}, "SCBPL": {"investments": 478.54, "advances": 214.15, "deposits": 650.14, "assets": 872.87, "borrowings": 14.68, "equity": 110.46, "liabilities": 762.41, "pat": 28.78, "gross_mu": 88.81, "net_mu": 61.46, "fee": 7.32, "idr": 0.736, "adr": 0.3294, "inv_to_assets": 0.5482, "adv_to_assets": 0.2453, "bor_to_liab": 0.0193, "dep_to_assets": 0.7448, "roe": 0.2605, "roa": 3.2973, "fee_to_income": 0.0908, "inv_cagr4": 0.0154, "adv_cagr4": -0.0221, "dep_cagr4": 0.0092, "assets_cagr4": 0.0098, "pat_cagr4": 0.2033, "gmu_cagr4": 0.1734, "inv_cagr3": 0.0005, "adv_cagr3": -0.0032, "dep_cagr3": -0.0328, "assets_cagr3": -0.02, "pat_cagr3": 0.1319}, "SNBL": {"investments": 484.31, "advances": 214.32, "deposits": 689.11, "assets": 852.48, "borrowings": 61.64, "equity": 36.79, "liabilities": 815.69, "pat": 4.56, "gross_mu": 84.38, "net_mu": 27.04, "fee": 4.9, "idr": 0.7028, "adr": 0.311, "inv_to_assets": 0.5681, "adv_to_assets": 0.2514, "bor_to_liab": 0.0756, "dep_to_assets": 0.8084, "roe": 0.1239, "roa": 0.5346, "fee_to_income": 0.1394, "inv_cagr4": 0.1048, "adv_cagr4": 0.0668, "dep_cagr4": 0.1435, "assets_cagr4": 0.1013, "pat_cagr4": 0.1241, "gmu_cagr4": 0.2278, "inv_cagr3": 0.2383, "adv_cagr3": 0.0093, "dep_cagr3": 0.1893, "assets_cagr3": 0.1371, "pat_cagr3": 0.3426}, "UBL": {"investments": 10085.7, "advances": 1369.37, "deposits": 5168.42, "assets": 12620.19, "borrowings": 6530.01, "equity": 498.73, "liabilities": 12121.46, "pat": 128.01, "gross_mu": 1184.82, "net_mu": 361.56, "fee": 27.99, "idr": 1.9514, "adr": 0.2649, "inv_to_assets": 0.7992, "adv_to_assets": 0.1085, "bor_to_liab": 0.5387, "dep_to_assets": 0.4095, "roe": 0.2567, "roa": 1.0143, "fee_to_income": 0.0667, "inv_cagr4": 0.6118, "adv_cagr4": 0.2065, "dep_cagr4": 0.3108, "assets_cagr4": 0.4817, "pat_cagr4": 0.4269, "gmu_cagr4": 0.6822, "inv_cagr3": 0.9339, "adv_cagr3": 0.141, "dep_cagr3": 0.4114, "assets_cagr3": 0.66, "pat_cagr3": 0.5864}};
+var TS = {"gross_mu": {"label": "Gross Markup", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [118.65, 215.47, 357.31, 376.76, 297.23], "AKBL": [77.55, 165.8, 305.64, 401.03, 300.75], "BAFL": [100.4, 213.9, 411.95, 506.9, 356.93], "BAHL": [116.75, 200.92, 373.9, 478.03, 337.14], "BIPL": [23.24, 46.35, 92.76, 112.8, 74.23], "BOK": [21.94, 40.24, 59.07, 65.22, 52.23], "BOP": [81.65, 137.17, 327.19, 343.79, 266.45], "FABL": [53.87, 104.52, 189.45, 225.05, 165.93], "HBL": [245.25, 408.97, 670.13, 768.56, 634.9], "HMB": [73.4, 133.17, 205.61, 234.24, 159.26], "JSBL": [39.13, 72.05, 92.09, 108.5, 71.45], "MCB": [123.33, 200.76, 328.06, 367.02, 293.83], "MEBL": [110.07, 232.12, 431.72, 494.3, 420.46], "NBP": [231.88, 503.31, 1024.66, 1089.41, 781.11], "SBL": [13.98, 22.55, 28.71, 28.72, 22.11], "SCBPL": [46.85, 90.43, 151.85, 159.13, 88.81], "SNBL": [37.13, 63.06, 98.03, 114.09, 84.38], "UBL": [147.97, 250.68, 521.37, 1084.58, 1184.82]}}, "net_mu": {"label": "Net Markup", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [45.59, 66.72, 113.28, 115.22, 105.0], "AKBL": [32.41, 39.96, 59.42, 63.28, 87.37], "BAFL": [46.27, 77.34, 126.07, 126.73, 135.85], "BAHL": [55.61, 77.32, 124.15, 156.25, 130.62], "BIPL": [10.93, 20.4, 40.18, 46.39, 35.65], "BOK": [6.79, 7.15, 13.89, 16.49, 19.0], "BOP": [29.88, 30.76, 40.95, 44.16, 81.1], "FABL": [25.83, 39.99, 71.05, 80.38, 69.63], "HBL": [120.95, 152.14, 223.39, 228.08, 249.51], "HMB": [29.5, 40.61, 71.42, 70.31, 66.46], "JSBL": [11.89, 14.86, 22.41, 27.31, 27.15], "MCB": [63.99, 87.16, 147.7, 149.09, 145.6], "MEBL": [68.92, 121.7, 226.43, 287.04, 252.47], "NBP": [97.62, 116.83, 168.75, 170.89, 248.51], "SBL": [4.31, 4.73, 8.1, 7.33, 5.59], "SCBPL": [26.27, 44.6, 94.16, 93.51, 61.46], "SNBL": [10.94, 11.27, 22.76, 24.95, 27.04], "UBL": [71.76, 103.21, 142.88, 173.41, 361.56]}}, "fee": {"label": "Fee & Comm", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [6.81, 8.15, 10.64, 14.08, 16.52], "AKBL": [4.61, 5.45, 7.08, 6.97, 7.65], "BAFL": [8.0, 10.84, 14.81, 17.62, 16.41], "BAHL": [9.3, 11.6, 13.87, 19.44, 19.14], "BIPL": [1.23, 1.46, 1.82, 2.31, 3.43], "BOK": [0.43, 0.55, 0.55, 0.94, 1.07], "BOP": [5.1, 7.33, 7.43, 11.37, 13.58], "FABL": [5.09, 6.63, 8.52, 10.47, 12.85], "HBL": [22.24, 27.65, 37.31, 42.6, 38.43], "HMB": [6.91, 7.93, 9.4, 10.75, 11.29], "JSBL": [3.21, 3.21, 4.13, 4.89, 4.95], "MCB": [12.44, 14.18, 20.23, 21.2, 19.27], "MEBL": [9.35, 13.32, 17.41, 21.34, 22.7], "NBP": [17.8, 21.15, 22.03, 25.48, 27.99], "SBL": [0.46, 0.41, 0.38, 0.37, 0.41], "SCBPL": [3.13, 2.99, 5.52, 6.99, 7.32], "SNBL": [2.07, 2.43, 3.09, 4.34, 4.9], "UBL": [13.06, 15.87, 17.53, 18.91, 27.99]}}, "pat": {"label": "PAT", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [17.31, 21.19, 40.68, 43.12, 35.18], "AKBL": [9.7, 14.06, 21.43, 21.02, 22.8], "BAFL": [14.22, 18.21, 36.46, 38.32, 28.34], "BAHL": [18.7, 16.57, 35.32, 39.86, 30.64], "BIPL": [2.13, 4.44, 11.05, 11.83, 6.0], "BOK": [1.1, 0.45, 3.48, 3.62, 5.82], "BOP": [12.44, 10.83, 11.34, 13.38, 15.94], "FABL": [8.15, 11.23, 20.05, 23.03, 21.7], "HBL": [34.27, 30.87, 56.86, 56.77, 62.49], "HMB": [13.46, 14.26, 24.38, 24.67, 22.58], "JSBL": [1.3, 0.96, 4.33, 2.85, 2.8], "MCB": [30.81, 32.74, 59.63, 57.61, 54.2], "MEBL": [28.36, 45.01, 84.48, 101.51, 89.04], "NBP": [28.01, 30.41, 51.84, 26.87, 85.91], "SBL": [0.79, -0.43, 1.24, 0.7, 0.73], "SCBPL": [13.73, 19.84, 42.62, 46.07, 28.78], "SNBL": [2.85, 1.88, 6.08, 5.9, 4.56], "UBL": [30.88, 32.06, 53.18, 80.53, 128.01]}}, "assets": {"label": "Total Assets", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [2010.16, 2250.97, 2329.32, 2816.97, 3370.39], "AKBL": [1259.14, 1526.13, 2124.01, 2498.37, 2895.0], "BAFL": [1734.32, 2253.2, 3345.92, 3710.21, 3829.93], "BAHL": [1849.65, 2272.07, 2744.07, 3320.04, 3303.76], "BIPL": [408.39, 487.24, 654.87, 737.83, 771.34], "BOK": [358.61, 344.98, 383.19, 477.56, 453.3], "BOP": [1196.95, 1481.89, 2216.18, 2379.98, 2951.68], "FABL": [869.61, 1074.35, 1370.07, 1565.28, 1774.73], "HBL": [4074.59, 4355.1, 5201.67, 5659.8, 7267.37], "HMB": [1224.42, 1397.44, 1556.42, 1500.13, 1658.88], "JSBL": [584.29, 616.72, 589.43, 636.11, 655.64], "MCB": [1970.47, 2085.36, 2427.18, 2703.34, 3247.06], "MEBL": [1902.97, 2577.4, 3012.11, 3900.41, 4806.56], "NBP": [3846.68, 5240.42, 6652.71, 6744.08, 7066.98], "SBL": [201.14, 179.07, 178.73, 182.49, 206.44], "SCBPL": [839.43, 927.29, 1001.95, 1057.29, 872.87], "SNBL": [579.49, 579.76, 658.56, 739.5, 852.48], "UBL": [2618.17, 2758.75, 5575.0, 8063.13, 12620.19]}}, "advances": {"label": "Advances", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [652.89, 845.64, 781.6, 1051.31, 789.68], "AKBL": [477.59, 583.81, 633.13, 695.76, 586.62], "BAFL": [673.88, 732.37, 735.05, 1109.38, 1104.92], "BAHL": [733.8, 813.53, 869.46, 910.85, 792.05], "BIPL": [181.18, 201.33, 230.19, 296.02, 291.75], "BOK": [124.55, 127.52, 101.59, 146.88, 126.71], "BOP": [484.41, 589.58, 806.39, 777.4, 881.42], "FABL": [396.3, 454.26, 580.71, 633.91, 872.0], "HBL": [1384.55, 1622.61, 1664.02, 2254.96, 1849.21], "HMB": [398.38, 433.5, 412.05, 474.3, 514.78], "JSBL": [254.18, 231.1, 203.73, 225.52, 249.78], "MCB": [589.71, 753.4, 577.86, 1041.63, 690.32], "MEBL": [758.09, 995.51, 961.67, 1514.76, 1640.93], "NBP": [1113.39, 1230.52, 1398.08, 1404.87, 1338.09], "SBL": [81.18, 74.45, 73.44, 56.07, 60.61], "SCBPL": [234.17, 216.21, 220.18, 171.57, 214.15], "SNBL": [165.49, 208.43, 205.75, 243.37, 214.32], "UBL": [646.19, 921.84, 613.57, 1443.48, 1369.37]}}, "investments": {"label": "Investments", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [1060.37, 1104.98, 1143.44, 1139.79, 2156.56], "AKBL": [611.4, 754.98, 1176.17, 1515.01, 2048.11], "BAFL": [807.99, 1106.86, 2066.36, 2007.14, 2198.92], "BAHL": [825.94, 1152.89, 1505.03, 1930.6, 2042.29], "BIPL": [126.23, 180.87, 317.29, 350.9, 324.63], "BOK": [183.91, 172.63, 222.53, 283.52, 275.36], "BOP": [525.24, 630.44, 910.27, 1321.93, 1553.72], "FABL": [357.58, 467.61, 592.89, 688.64, 640.18], "HBL": [1903.14, 1857.05, 2483.78, 2414.29, 4117.33], "HMB": [666.24, 718.79, 923.86, 818.34, 873.9], "JSBL": [232.41, 303.01, 287.88, 303.85, 279.34], "MCB": [1030.85, 959.65, 1237.5, 1174.89, 1977.47], "MEBL": [624.17, 1282.54, 1583.31, 1892.68, 2611.22], "NBP": [1958.06, 3473.1, 4420.25, 4682.04, 4998.87], "SBL": [93.44, 76.15, 70.14, 100.25, 117.74], "SCBPL": [450.1, 477.83, 226.76, 655.88, 478.54], "SNBL": [325.1, 255.09, 309.21, 385.99, 484.31], "UBL": [1494.5, 1394.51, 4388.97, 5925.73, 10085.7]}}, "deposits": {"label": "Deposits", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [1413.3, 1522.3, 1676.62, 2018.4, 2345.86], "AKBL": [1015.43, 1142.57, 1293.15, 1363.74, 1631.33], "BAFL": [1139.04, 1486.85, 2085.0, 2136.91, 2496.21], "BAHL": [1309.82, 1568.14, 1934.04, 2278.96, 2599.09], "BIPL": [344.79, 415.91, 522.54, 559.18, 660.18], "BOK": [221.88, 248.91, 289.29, 277.64, 378.12], "BOP": [1002.95, 1227.34, 1520.85, 1710.29, 2051.54], "FABL": [644.09, 781.57, 1018.28, 1044.28, 1427.36], "HBL": [3184.26, 3234.18, 3870.18, 4091.17, 5230.77], "HMB": [772.29, 880.7, 1012.3, 927.13, 1119.63], "JSBL": [460.71, 464.13, 486.28, 525.13, 543.5], "MCB": [1411.85, 1378.72, 1805.39, 1922.21, 2261.28], "MEBL": [1455.89, 1658.49, 2217.47, 2584.87, 3302.84], "NBP": [3019.16, 2666.18, 3674.36, 3865.56, 4429.27], "SBL": [79.27, 105.24, 114.73, 107.14, 118.93], "SCBPL": [626.77, 718.45, 719.53, 835.69, 650.14], "SNBL": [403.04, 409.64, 517.87, 543.15, 689.11], "UBL": [1750.94, 1838.37, 2350.54, 2640.21, 5168.42]}}, "equity": {"label": "Equity", "years": [2021, 2022, 2023, 2024, 2025], "banks": {"ABL": [127.24, 127.81, 194.25, 233.9, 263.38], "AKBL": [55.9, 73.32, 97.12, 121.63, 151.75], "BAFL": [100.0, 100.01, 137.92, 178.11, 197.51], "BAHL": [90.02, 95.24, 129.66, 151.99, 171.27], "BIPL": [22.51, 26.45, 36.47, 48.31, 48.61], "BOK": [16.57, 16.43, 20.3, 21.9, 23.68], "BOP": [54.83, 65.05, 80.75, 92.53, 104.14], "FABL": [65.82, 70.08, 90.2, 108.36, 115.45], "HBL": [257.93, 253.78, 333.78, 377.79, 446.0], "HMB": [62.97, 74.51, 93.28, 115.03, 127.81], "JSBL": [22.02, 21.55, 40.32, 43.71, 46.66], "MCB": [174.41, 189.49, 230.71, 270.26, 315.74], "MEBL": [86.56, 115.32, 184.91, 246.98, 279.26], "NBP": [286.2, 300.85, 382.76, 456.95, 531.42], "SBL": [15.9, 14.65, 16.36, 17.23, 18.8], "SCBPL": [79.61, 87.52, 96.22, 117.72, 110.46], "SNBL": [21.64, 21.15, 28.61, 30.81, 36.79], "UBL": [204.64, 209.02, 252.5, 316.22, 498.73]}}};
 
-function sortedBy(metric,asc=false){
-  const obj=D[metric];
-  return Object.entries(obj).filter(([k,v])=>v!==null&&!isNaN(v)).sort((a,b)=>asc?a[1]-b[1]:b[1]-a[1]);
+var PRIMARY='#0a4c76';
+var PALETTE=['#0a4c76','#1a6fa0','#2d93c9','#6ab4d8','#a8d5e8','#c8e6f0','#0d3d5e','#164f72','#0e5a8a','#1870a8','#2286c6','#3a9fd4','#5ab5de','#7dcce8','#a0dff0','#c0eef8','#d6f3fc','#e8f9ff'];
+var charts={};
+var banks=Object.keys(SD);
+
+function bankColor(b){var a=SD[b].assets;return a>3000?'rgba(10,76,118,0.8)':a>1000?'rgba(45,147,201,0.8)':'rgba(153,153,153,0.8)';}
+
+var labelPlugin={id:'lbl',afterDatasetsDraw:function(ch){
+  var ctx=ch.ctx;ctx.save();
+  ch.data.datasets.forEach(function(ds,i){
+    var m=ch.getDatasetMeta(i);
+    if(!m.hidden&&m.data.length){
+      var pt=m.data[0];
+      ctx.fillStyle='#000';ctx.font='500 10px Poppins';ctx.textAlign='center';
+      ctx.fillText(ds.label,pt.x,pt.y-12);
+    }
+  });ctx.restore();
+}};
+
+function makeRefLine(slope){return {id:'ref',afterDraw:function(ch){
+  var ctx=ch.ctx,xA=ch.scales.x,yA=ch.scales.y;
+  var x0=xA.getPixelForValue(xA.min),x1=xA.getPixelForValue(xA.max);
+  var y0=yA.getPixelForValue(xA.min*slope),y1=yA.getPixelForValue(xA.max*slope);
+  ctx.save();ctx.setLineDash([5,5]);ctx.strokeStyle='rgba(0,0,0,0.2)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);ctx.stroke();ctx.restore();
+}};}
+
+function sortedBy(metric,asc){
+  var obj=D[metric];
+  return Object.entries(obj).filter(function(e){return e[1]!==null&&!isNaN(e[1]);}).sort(function(a,b){return asc?a[1]-b[1]:b[1]-a[1];});
 }
 
 function makeHBar(id,labels,data,isPercent){
   if(charts[id])charts[id].destroy();
-  const canvas=document.getElementById(id);if(!canvas)return;
-  const colors=data.map(v=>isPercent?(v>=0?'#0a4c76':'#c0392b'):'#0a4c76');
-  charts[id]=new Chart(canvas,{type:'bar',data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:0}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+(isPercent?(ctx.raw*100).toFixed(1)+'%':ctx.raw.toFixed(1))}}},scales:{x:{grid:{display:false},border:{display:false},ticks:{callback:v=>isPercent?(v*100).toFixed(0)+'%':v.toFixed(0),font:{family:'Poppins',size:10},color:'#000'}},y:{grid:{display:false},border:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#000'}}}}});
+  var canvas=document.getElementById(id);if(!canvas)return;
+  var colors=data.map(function(v){return isPercent?(v>=0?'#0a4c76':'#c0392b'):'#0a4c76';});
+  charts[id]=new Chart(canvas,{type:'bar',data:{labels:labels,datasets:[{data:data,backgroundColor:colors,borderWidth:0}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' '+(isPercent?(ctx.raw*100).toFixed(1)+'%':ctx.raw.toFixed(1));}}}},
+      scales:{
+        x:{grid:{display:false},border:{display:false},ticks:{callback:function(v){return isPercent?(v*100).toFixed(0)+'%':v.toFixed(0);},font:{family:'Poppins',size:10},color:'#000'}},
+        y:{grid:{display:false},border:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#000'}}
+      }
+    }
+  });
+}
+
+function makeScatter(id,pts,xLabel,yLabel,opts){
+  opts=opts||{};
+  if(charts[id])charts[id].destroy();
+  var canvas=document.getElementById(id);if(!canvas)return;
+
+  var xVals=pts.map(function(p){return p.x;});
+  var yVals=pts.map(function(p){return p.y;});
+  var xMin=opts.xMin!=null?opts.xMin:Math.min.apply(null,xVals);
+  var xMax=Math.max.apply(null,xVals);
+  var yMin=opts.yMin!=null?opts.yMin:Math.min.apply(null,yVals);
+  var yMax=Math.max.apply(null,yVals);
+
+  // Equal spacing: use same range on both axes if requested
+  if(opts.equalAxes){
+    var xRange=xMax-xMin;
+    var yRange=yMax-yMin;
+    var maxRange=Math.max(xRange,yRange)*1.15;
+    xMax=xMin+maxRange;
+    yMax=yMin+maxRange;
+  } else {
+    var xPad=(xMax-xMin)*0.15;
+    var yPad=(yMax-yMin)*0.18;
+    xMin-=xPad;xMax+=xPad;yMin-=yPad;yMax+=yPad;
+    if(opts.xMin!=null)xMin=opts.xMin;
+    if(opts.yMin!=null)yMin=opts.yMin;
+  }
+
+  var datasets=pts.map(function(p){
+    return {label:p.b,data:[{x:p.x,y:p.y}],
+      backgroundColor:p.color||bankColor(p.b),
+      borderColor:(p.color||bankColor(p.b)).replace('0.8','1'),
+      borderWidth:1.5,
+      pointRadius:7,
+      pointHoverRadius:10};
+  });
+
+  var plugins=[labelPlugin];
+  if(opts.refLine!=null)plugins.push(makeRefLine(opts.refLine));
+
+  charts[id]=new Chart(canvas,{type:'bubble',data:{datasets:datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){
+        var b=ctx.dataset.label;
+        var xv=opts.xFmt?opts.xFmt(ctx.raw.x):ctx.raw.x.toFixed(1);
+        var yv=opts.yFmt?opts.yFmt(ctx.raw.y):ctx.raw.y.toFixed(1);
+        return b+': ('+xv+', '+yv+')';
+      }}}},
+      scales:{
+        x:{min:xMin,max:xMax,grid:{display:false},border:{display:false},
+          title:{display:true,text:xLabel,font:{family:'Poppins',size:10},color:'#999'},
+          ticks:{font:{family:'Poppins',size:10},color:'#000',callback:opts.xTick||function(v){return v.toFixed(1);}}},
+        y:{min:yMin,max:yMax,grid:{color:'rgba(0,0,0,0.05)'},border:{display:false},
+          title:{display:true,text:yLabel,font:{family:'Poppins',size:10},color:'#999'},
+          ticks:{font:{family:'Poppins',size:10},color:'#000',callback:opts.yTick||function(v){return v.toFixed(1);}}}
+      },
+      animation:{duration:300},layout:{padding:{top:20,right:30,left:8,bottom:8}}
+    },plugins:plugins
+  });
+}
+
+
+function makeScatterFixed(id,pts,xLabel,yLabel,opts){
+  opts=opts||{};
+  if(charts[id])charts[id].destroy();
+  var canvas=document.getElementById(id);if(!canvas)return;
+  var datasets=pts.map(function(p){
+    return {label:p.b,data:[{x:p.x,y:p.y}],
+      backgroundColor:p.color||bankColor(p.b),
+      borderColor:(p.color||bankColor(p.b)).replace('0.8','1'),
+      borderWidth:1.5,pointRadius:7,pointHoverRadius:10};
+  });
+  var plugins=[labelPlugin];
+  if(opts.vLine!=null){plugins.push({id:'vline',afterDraw:function(ch){
+    var ctx=ch.ctx,xA=ch.scales.x,yA=ch.scales.y;
+    var px=xA.getPixelForValue(opts.vLine);
+    ctx.save();ctx.setLineDash([6,4]);ctx.strokeStyle='rgba(0,0,0,0.35)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(px,yA.top);ctx.lineTo(px,yA.bottom);ctx.stroke();ctx.restore();
+  }});}
+  charts[id]=new Chart(canvas,{type:'bubble',data:{datasets:datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){
+        var b=ctx.dataset.label;
+        var xv=opts.xFmt?opts.xFmt(ctx.raw.x):ctx.raw.x.toFixed(1);
+        var yv=opts.yFmt?opts.yFmt(ctx.raw.y):ctx.raw.y.toFixed(1);
+        return b+': ('+xv+', '+yv+')';
+      }}}},
+      scales:{
+        x:{min:opts.xMin,max:opts.xMax,grid:{display:false},border:{display:false},
+          title:{display:true,text:xLabel,font:{family:'Poppins',size:10},color:'#999'},
+          ticks:{stepSize:opts.xStep,font:{family:'Poppins',size:10},color:'#000',callback:opts.xTick||function(v){return v;}}},
+        y:{min:opts.yMin,max:opts.yMax,grid:{color:'rgba(0,0,0,0.05)'},border:{display:false},
+          title:{display:true,text:yLabel,font:{family:'Poppins',size:10},color:'#999'},
+          ticks:{stepSize:opts.yStep,font:{family:'Poppins',size:10},color:'#000',callback:opts.yTick||function(v){return v;}}}
+      },
+      animation:{duration:300},layout:{padding:{top:20,right:30,left:8,bottom:8}}
+    },plugins:plugins
+  });
 }
 
 function renderPL(){
-  const pat=sortedBy('pat_25');makeHBar('c_pat',pat.map(x=>x[0]),pat.map(x=>x[1]),false);
-  const patyoy=sortedBy('pat_yoy',true);makeHBar('c_pat_yoy',patyoy.map(x=>x[0]),patyoy.map(x=>x[1]),true);
-  const gm=sortedBy('gross_mu_25');makeHBar('c_gross',gm.map(x=>x[0]),gm.map(x=>x[1]),false);
-  const nm=sortedBy('net_mu_25');makeHBar('c_net',nm.map(x=>x[0]),nm.map(x=>x[1]),false);
-  const fee=sortedBy('fee_25');makeHBar('c_fee',fee.map(x=>x[0]),fee.map(x=>x[1]),false);
-  const gmyoy=sortedBy('gross_mu_yoy',true);makeHBar('c_gross_yoy',gmyoy.map(x=>x[0]),gmyoy.map(x=>x[1]),true);
+  var pat=sortedBy('pat_25',false);
+  makeHBar('c_pat',pat.map(function(x){return x[0];}),pat.map(function(x){return x[1];}),false);
+  var patyoy=sortedBy('pat_yoy',true);
+  makeHBar('c_pat_yoy',patyoy.map(function(x){return x[0];}),patyoy.map(function(x){return x[1];}),true);
+  var gm=sortedBy('gross_mu_25',false);
+  makeHBar('c_gross',gm.map(function(x){return x[0];}),gm.map(function(x){return x[1];}),false);
+  var gmyoy=sortedBy('gross_mu_yoy',true);
+  makeHBar('c_gross_yoy',gmyoy.map(function(x){return x[0];}),gmyoy.map(function(x){return x[1];}),true);
+  var nm=sortedBy('net_mu_25',false);
+  makeHBar('c_net',nm.map(function(x){return x[0];}),nm.map(function(x){return x[1];}),false);
+  var nmyoy=sortedBy('net_mu_yoy',true);
+  makeHBar('c_net_yoy',nmyoy.map(function(x){return x[0];}),nmyoy.map(function(x){return x[1];}),true);
+  var fee=sortedBy('fee_25',false);
+  makeHBar('c_fee',fee.map(function(x){return x[0];}),fee.map(function(x){return x[1];}),false);
+  var feeyoy=sortedBy('fee_yoy',true);
+  makeHBar('c_fee_yoy',feeyoy.map(function(x){return x[0];}),feeyoy.map(function(x){return x[1];}),true);
+  var pts=banks.filter(function(b){return SD[b].pat_cagr4!=null&&SD[b].pat>0;}).map(function(b){return {b:b,x:SD[b].pat_cagr4*100,y:SD[b].pat};});
+  makeScatter('c_pat_scatter',pts,'4-Year PAT CAGR (%)','PAT FY2025 (PKR Bn)',{
+    xTick:function(v){return v.toFixed(0)+'%';},yTick:function(v){return v.toFixed(0);},
+    xFmt:function(v){return v.toFixed(1)+'%';},yFmt:function(v){return v.toFixed(1)+' Bn';},
+    equalAxes:false});
 }
 
 function renderBS(){
-  const assets=sortedBy('assets_25');makeHBar('c_assets',assets.map(x=>x[0]),assets.map(x=>x[1]),false);
-  const ayoy=sortedBy('assets_yoy',true);makeHBar('c_assets_yoy',ayoy.map(x=>x[0]),ayoy.map(x=>x[1]),true);
-  const dep=sortedBy('deposits_25');makeHBar('c_dep',dep.map(x=>x[0]),dep.map(x=>x[1]),false);
-  const adv=sortedBy('advances_25');makeHBar('c_adv',adv.map(x=>x[0]),adv.map(x=>x[1]),false);
-  const dyoy=sortedBy('deposits_yoy',true);makeHBar('c_dep_yoy',dyoy.map(x=>x[0]),dyoy.map(x=>x[1]),true);
-  if(charts['c_mix'])charts['c_mix'].destroy();
-  const mb=sortedBy('assets_25').map(x=>x[0]);
-  charts['c_mix']=new Chart(document.getElementById('c_mix'),{type:'bar',data:{labels:mb,datasets:[{label:'Investments',data:mb.map(b=>D['inv_to_assets'][b]||0),backgroundColor:'#0a4c76'},{label:'Advances',data:mb.map(b=>D['adv_to_assets'][b]||0),backgroundColor:'#2d93c9'}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{family:'Poppins',size:9},boxWidth:10}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+(ctx.raw*100).toFixed(1)+'%'}}},scales:{x:{stacked:true,grid:{display:false},border:{display:false},ticks:{callback:v=>(v*100).toFixed(0)+'%',font:{family:'Poppins',size:10},color:'#000'}},y:{stacked:true,grid:{display:false},border:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#000'}}}}});
+  var assets=sortedBy('assets_25',false);
+  makeHBar('c_assets',assets.map(function(x){return x[0];}),assets.map(function(x){return x[1];}),false);
+  var ayoy=sortedBy('assets_yoy',true);
+  makeHBar('c_assets_yoy',ayoy.map(function(x){return x[0];}),ayoy.map(function(x){return x[1];}),true);
+  var dep=sortedBy('deposits_25',false);
+  makeHBar('c_dep',dep.map(function(x){return x[0];}),dep.map(function(x){return x[1];}),false);
+  var dyoy=sortedBy('deposits_yoy',true);
+  makeHBar('c_dep_yoy',dyoy.map(function(x){return x[0];}),dyoy.map(function(x){return x[1];}),true);
+  var adv=sortedBy('advances_25',false);
+  makeHBar('c_adv',adv.map(function(x){return x[0];}),adv.map(function(x){return x[1];}),false);
+  var advyoy=sortedBy('advances_yoy',true);
+  makeHBar('c_adv_yoy',advyoy.map(function(x){return x[0];}),advyoy.map(function(x){return x[1];}),true);
+  // Asset mix scatter: x = adv/assets, y = inv/assets — equal axes 0-100%
+
 }
 
 function renderRatios(){
-  const roe=sortedBy('roe_25');makeHBar('c_roe',roe.map(x=>x[0]),roe.map(x=>x[1]),true);
-  const roa=sortedBy('roa_25');makeHBar('c_roa',roa.map(x=>x[0]),roa.map(x=>x[1]),false);
-  const fti=sortedBy('fee_to_income');makeHBar('c_fee_r',fti.map(x=>x[0]),fti.map(x=>x[1]),true);
-  const btl=sortedBy('borrowings_to_liab');makeHBar('c_bor_r',btl.map(x=>x[0]),btl.map(x=>x[1]),true);
-  const adr=sortedBy('adv_to_assets');makeHBar('c_adr_a',adr.map(x=>x[0]),adr.map(x=>x[1]),true);
-  const idr=sortedBy('inv_to_assets');makeHBar('c_idr_a',idr.map(x=>x[0]),idr.map(x=>x[1]),true);
+  var roePts=banks.map(function(b){return {b:b,x:SD[b].roe*100,y:SD[b].roa};}).filter(function(p){return p.x&&p.y;});
+  makeScatterFixed('c_roe_scatter',roePts,'ROE (%)','ROA (%)',{
+    xMin:0,xMax:35,xStep:5,yMin:0,yMax:4,yStep:0.5,
+    xTick:function(v){return v.toFixed(0)+'%';},yTick:function(v){return v.toFixed(1)+'%';},
+    xFmt:function(v){return v.toFixed(1)+'%';},yFmt:function(v){return v.toFixed(2)+'%';}});
+  var idrPts=banks.filter(function(b){return SD[b].idr&&SD[b].adr;}).map(function(b){return {b:b,x:SD[b].adr*100,y:SD[b].idr*100,color:SD[b].idr>1?'rgba(192,57,43,0.8)':bankColor(b)};});
+  makeScatterFixed('c_idr_scatter',idrPts,'ADR — Advances/Deposits (%)','IDR — Investments/Deposits (%)',{
+    xMin:0,xMax:80,xStep:20,yMin:0,yMax:200,yStep:40,
+    xTick:function(v){return v.toFixed(0)+'%';},yTick:function(v){return v.toFixed(0)+'%';},
+    xFmt:function(v){return v.toFixed(1)+'%';},yFmt:function(v){return v.toFixed(1)+'%';}});
+  var roe=sortedBy('roe_25',false);
+  makeHBar('c_roe',roe.map(function(x){return x[0];}),roe.map(function(x){return x[1];}),true);
+  var fti=sortedBy('fee_to_income',false);
+  makeHBar('c_fee_r',fti.map(function(x){return x[0];}),fti.map(function(x){return x[1];}),true);
+  var btl=sortedBy('borrowings_to_liab',false);
+  makeHBar('c_bor_r',btl.map(function(x){return x[0];}),btl.map(function(x){return x[1];}),true);
+  var astPts=banks.filter(function(b){return SD[b].assets_cagr4!=null;}).map(function(b){return {b:b,x:SD[b].assets_cagr4*100,y:SD[b].assets};});
+  makeScatter('c_assets_scatter',astPts,'4-Year Asset CAGR (%)','Total Assets FY2025 (PKR Bn)',{
+    xMin:0,equalAxes:false,
+    xTick:function(v){return v.toFixed(0)+'%';},yTick:function(v){return v>=1000?(v/1000).toFixed(1)+'T':v.toFixed(0);},
+    xFmt:function(v){return v.toFixed(1)+'%';},yFmt:function(v){return v.toFixed(0)+' Bn';}});
 }
 
-let trendChart=null;
+var trendChart=null;
 function populateBankSelect(){
-  const sel=document.getElementById('trendBanks');
-  const top=['UBL','HBL','NBP','MEBL','BAFL','MCB'];
-  const all=Object.keys(D['pat_25']).sort();
-  sel.size=Math.min(10,all.length);
-  all.forEach(b=>{const o=document.createElement('option');o.value=b;o.text=b;if(top.includes(b))o.selected=true;sel.appendChild(o);});
+  var sel=document.getElementById('trendBanks');
+  var top=['UBL','HBL','NBP','MEBL','BAFL','MCB'];
+  var all=Object.keys(D['pat_25']).sort();
+  all.forEach(function(b){var o=document.createElement('option');o.value=b;o.text=b;if(top.indexOf(b)>=0)o.selected=true;sel.appendChild(o);});
 }
 function renderTrend(){
-  const metric=document.getElementById('trendMetric').value;
-  const sel=document.getElementById('trendBanks');
-  const selected=Array.from(sel.selectedOptions).map(o=>o.value);
+  var metric=document.getElementById('trendMetric').value;
+  var sel=document.getElementById('trendBanks');
+  var selected=Array.from(sel.selectedOptions).map(function(o){return o.value;});
   if(!selected.length)return;
-  const ts=TS[metric];
-  const datasets=selected.map((b,i)=>({label:b,data:ts.banks[b]||[],borderColor:PALETTE[i%PALETTE.length],backgroundColor:'transparent',borderWidth:2,pointRadius:3,tension:0.3,spanGaps:true}));
+  var ts=TS[metric];
+  var datasets=selected.map(function(b,i){return {label:b,data:ts.banks[b]||[],borderColor:PALETTE[i%PALETTE.length],backgroundColor:'transparent',borderWidth:2,pointRadius:3,tension:0.3,spanGaps:true};});
   if(trendChart)trendChart.destroy();
-  trendChart=new Chart(document.getElementById('c_trend'),{type:'line',data:{labels:ts.years,datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:12,color:'#000'}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+(ctx.raw!==null?ctx.raw.toFixed(1):'N/A')}}},scales:{x:{grid:{display:false},border:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#000'}},y:{grid:{color:'rgba(0,0,0,0.06)'},border:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#000'}}}}});
+  trendChart=new Chart(document.getElementById('c_trend'),{type:'line',
+    data:{labels:ts.years,datasets:datasets},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,position:'bottom',labels:{font:{family:'Poppins',size:10},boxWidth:12,color:'#000'}},
+        tooltip:{callbacks:{label:function(ctx){return ctx.dataset.label+': '+(ctx.raw!==null?ctx.raw.toFixed(1):'N/A');}}}},
+      scales:{
+        x:{grid:{display:false},border:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#000'}},
+        y:{grid:{color:'rgba(0,0,0,0.06)'},border:{display:false},ticks:{font:{family:'Poppins',size:10},color:'#000'}}
+      }
+    }
+  });
 }
 
-const rendered={};
+var rendered={};
 function showTab(tab,evt){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('active');});
   document.getElementById(tab).classList.add('active');
   if(evt)evt.target.classList.add('active');
   if(tab==='pl'&&!rendered.pl){renderPL();rendered.pl=true;}
   if(tab==='bs'&&!rendered.bs){renderBS();rendered.bs=true;}
   if(tab==='ratios'&&!rendered.ratios){renderRatios();rendered.ratios=true;}
   if(tab==='trends'&&!rendered.trends){populateBankSelect();renderTrend();rendered.trends=true;}
+  setTimeout(sendHeight,400);
 }
 renderPL();rendered.pl=true;
+
+function sendHeight(){
+  var h=Math.max(document.body.scrollHeight,document.documentElement.scrollHeight,600);
+  window.parent.postMessage(JSON.stringify({type:'resize',height:h}),'*');
+}
+window.addEventListener('load',function(){
+  sendHeight();
+  var count=0;
+  var iv=setInterval(function(){sendHeight();if(++count>10)clearInterval(iv);},500);
+});
+document.addEventListener('click',function(){setTimeout(sendHeight,400);});
 </script>
 </body>
 </html>
