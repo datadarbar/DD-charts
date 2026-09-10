@@ -763,22 +763,4 @@ function initScrollSpy(){
   spy();
 }
 renderAll();initScrollSpy();
-</script><script>
-(function(){
-  // Report page height to a parent frame (for seamless WordPress iframe embed).
-  // Harmless when not embedded.
-  function reportHeight(){
-    try{
-      var hgt=Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-      if(window.parent && window.parent!==window){
-        window.parent.postMessage({ddDashHeight: hgt}, '*');
-      }
-    }catch(e){}
-  }
-  window.addEventListener('load', function(){ reportHeight(); setTimeout(reportHeight, 800); setTimeout(reportHeight, 2000); });
-  window.addEventListener('resize', reportHeight);
-  // charts render slightly after load; re-report a few times to catch final height
-  var n=0, t=setInterval(function(){ reportHeight(); if(++n>6) clearInterval(t); }, 1000);
-})();
-</script>
-</body></html>
+</script></body></html>
