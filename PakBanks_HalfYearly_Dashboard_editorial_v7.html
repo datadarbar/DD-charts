@@ -47,7 +47,7 @@ h1{font-family:var(--font-head);font-size:clamp(36px,4.6vw,46px);line-height:1.0
 .nav button:hover{color:var(--blue)}
 .nav button.active{color:var(--navy);font-weight:600;border-bottom-color:var(--navy)}
 #trends{min-height:86vh}
-.section{display:block;scroll-margin-top:60px;padding-top:38px}
+.section{display:block;scroll-margin-top:10px;padding-top:38px}
 .section+.section{border-top:1px solid var(--rule);margin-top:32px}
 .kicker{font-size:10px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .section .story-h{font-family:var(--font-head);font-size:clamp(26px,2.8vw,30px);font-weight:700;color:var(--navy);line-height:1.14;margin-bottom:12px;letter-spacing:-0.32px}
@@ -98,7 +98,6 @@ footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--rule);font-si
 <div class="sub">The 19 listed banks ended June 2026 with assets 17.9% above a year earlier, while H1 profit rose 2.6%. This dashboard compares profitability, margins, lending, investments, funding and income mix across the sector.</div>
 <div class="method">H1-2026 is compared with H1-2025. Income items are January-June sums; balance-sheet items are 30 June snapshots. PKR B unless stated. Coverage: 19 listed banks (14 consolidated, 5 standalone). Silkbank is excluded after its merger into UBL. Source: bank financial statements via MG Link.</div>
 <div class="kpi-strip" id="ov_kpis"></div>
-<div class="nav"><button class="active" data-tab="overview" onclick="showTab('overview',event)">Scorecard</button><button data-tab="pl" onclick="showTab('pl',event)">Profit &amp; margins</button><button data-tab="mom" onclick="showTab('mom',event)">Profit trends</button><button data-tab="bs" onclick="showTab('bs',event)">Lending &amp; investments</button><button data-tab="fund" onclick="showTab('fund',event)">Funding</button><button data-tab="biz" onclick="showTab('biz',event)">Income mix</button><button data-tab="ratios" onclick="showTab('ratios',event)">Reference</button><button data-tab="trends" onclick="showTab('trends',event)">Trends</button></div>
 <div class="section active" id="overview">
 <div class="story">
 <div class="kicker">Sector scorecard</div><div class="story-h">Bank-by-bank comparison</div>
@@ -724,7 +723,7 @@ function renderTrend(){var metric=document.getElementById('trendMetric').value;
       scales:{x:{grid:{display:false},border:{display:false},ticks:{font:{size:10},color:'#536171',maxRotation:45,minRotation:0}},y:{grid:{color:'rgba(15,36,64,0.07)'},border:{display:false},ticks:{font:{size:11},color:'#536171'}}}}});
 }
 var _spyLock=false, _spyLockT=null;
-function setActiveNav(tab){
+function setActiveNav(tab){ if(!document.querySelector('.nav'))return;
   document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('active');});
   var btn=document.querySelector('.nav button[data-tab="'+tab+'"]');
   if(btn)btn.classList.add('active');
@@ -756,7 +755,7 @@ function initScrollSpy(){
   var ticking=false;
   function spy(){
     if(_spyLock)return;
-    var navH=(document.querySelector('.nav').offsetHeight||60)+20;
+    var navH=((document.querySelector('.nav')||{}).offsetHeight||60)+20;
     var best=ids[0],bestTop=-1e9;
     ids.forEach(function(id){var e=document.getElementById(id);if(!e)return;
       var t=e.getBoundingClientRect().top-navH;
