@@ -98,16 +98,6 @@ footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--rule);font-si
 <div class="sub">The 19 listed banks ended June 2026 with assets 17.9% above a year earlier, while H1 profit rose 2.6%. This dashboard compares profitability, margins, lending, investments, funding and income mix across the sector.</div>
 <div class="method">H1-2026 is compared with H1-2025. Income items are January-June sums; balance-sheet items are 30 June snapshots. PKR B unless stated. Coverage: 19 listed banks (14 consolidated, 5 standalone). Silkbank is excluded after its merger into UBL. Source: bank financial statements via MG Link.</div>
 <div class="kpi-strip" id="ov_kpis"></div>
-<div class="nav">
-  <button class="active" data-tab="overview" onclick="showTab('overview',event)">Scorecard</button>
-  <button data-tab="pl" onclick="showTab('pl',event)">Profit & margins</button>
-  <button data-tab="mom" onclick="showTab('mom',event)">Profit trends</button>
-  <button data-tab="bs" onclick="showTab('bs',event)">Lending & investments</button>
-  <button data-tab="fund" onclick="showTab('fund',event)">Funding</button>
-  <button data-tab="biz" onclick="showTab('biz',event)">Income mix</button>
-  <button data-tab="ratios" onclick="showTab('ratios',event)">Reference</button>
-  <button data-tab="trends" onclick="showTab('trends',event)">Trends</button>
-</div>
 <div class="section active" id="overview">
 <div class="story">
 <div class="kicker">Sector scorecard</div><div class="story-h">Bank-by-bank comparison</div>
@@ -779,7 +769,7 @@ function renderTrend(){var metric=document.getElementById('trendMetric').value;
       scales:{x:{grid:{display:false},border:{display:false},ticks:{font:{size:10},color:'#536171',maxRotation:45,minRotation:0}},y:{grid:{color:'rgba(15,36,64,0.07)'},border:{display:false},ticks:{font:{size:11},color:'#536171'}}}}});
 }
 var _spyLock=false, _spyLockT=null;
-function setActiveNav(tab){ if(!document.querySelector('.nav'))return;
+function setActiveNav(tab){ if(!document.querySelector('.nav'))return; if(!document.querySelector('.nav'))return;
   document.querySelectorAll('.nav button').forEach(function(b){b.classList.remove('active');});
   var btn=document.querySelector('.nav button[data-tab="'+tab+'"]');
   if(btn)btn.classList.add('active');
@@ -859,4 +849,18 @@ if(document.readyState==='complete'){
 }else{
   window.addEventListener('load', startWhenReady);
 }
-</script></body></html>
+</script><script>
+(function(){
+  function reportHeight(){
+    try{
+      var hgt=Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      if(window.parent && window.parent!==window){ window.parent.postMessage({ddDashHeight: hgt}, '*'); }
+    }catch(e){}
+  }
+  window.addEventListener('load', function(){ reportHeight(); setTimeout(reportHeight,600); setTimeout(reportHeight,1500); setTimeout(reportHeight,3000); });
+  window.addEventListener('resize', reportHeight);
+  if('ResizeObserver' in window){ try{ new ResizeObserver(reportHeight).observe(document.body); }catch(e){} }
+  var n=0,t=setInterval(function(){ reportHeight(); if(++n>8) clearInterval(t); },1000);
+})();
+</script>
+</body></html>
